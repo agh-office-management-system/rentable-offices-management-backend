@@ -1,7 +1,6 @@
 package pl.edu.agh.rentableoffices.apartment.service;
 
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.edu.agh.rentableoffices.apartment.dao.ApartmentRepository;
 import pl.edu.agh.rentableoffices.apartment.dto.ApartmentDto;
@@ -12,10 +11,10 @@ import javax.validation.constraints.NotNull;
 
 @Service
 @Transactional
-@AllArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class ApartmentDetailsService {
-    private ApartmentRepository repository;
-    private ApartmentMapper mapper;
+    private final ApartmentRepository repository;
+    private final ApartmentMapper mapper;
 
     public ApartmentDto get(@NotNull Long id) {
         return mapper.toDto(repository.getOne(id));
