@@ -22,7 +22,7 @@ services:
       POSTGRES_PASSWORD: postgres
 
   db_admin:
-    container_name: offices_pg_admin
+    container_name: offices_db_admin
     image: adminer
     restart: always
     ports:
