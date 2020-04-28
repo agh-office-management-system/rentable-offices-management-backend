@@ -1,0 +1,87 @@
+{
+	"info": {
+		"_postman_id": "bf6a6a82-d332-4341-a06e-e0959364f6c5",
+		"name": "Rentable-office",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Apartment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"floor\": 0,\n\t\"roomCount\": 1,\n\t\"area\": 120.5,\n\t\"address\": {\n\t\t\"number\": \"62a\",\n\t\t\"street\": \"Siewna\",\n\t\t\"city\": \"Kraków\",\n\t\t\"postalCode\": \"31-231\"\n\t}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/apartment",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"apartment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get apartment by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/apartment/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"apartment",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update apartment",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"newRoomCount\": 2,\n\t\"newAddress\": {\n\t\t\"number\": \"62\",\n\t\t\"street\": \"Siewna\",\n\t\t\"city\": \"Kraków\",\n\t\t\"postalCode\": \"31-231\"\n\t}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/apartment/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"apartment",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
