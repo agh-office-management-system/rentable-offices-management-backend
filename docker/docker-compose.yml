@@ -1,0 +1,30 @@
+version: '3.2'
+services:
+  rabbit:
+    container_name: offices_rabbit
+    image: 'bitnami/rabbitmq:3.8'
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+
+  db:
+    container_name: offices_postgres
+    image: postgres
+    restart: always
+    ports:
+      - 5433:5432
+    environment:
+      POSTGRES_DB: offices
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+  db_admin:
+    container_name: offices_pg_admin
+    image: adminer
+    restart: always
+    ports:
+      - 8089:8080
+
