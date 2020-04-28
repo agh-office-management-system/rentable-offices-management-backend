@@ -46,10 +46,15 @@ TODO diagram jak będzie już gotowe na 100 pro
 - `service` -> Zawiera serwisy (włączając listenery i sendery z rabbita)
 - `web` -> Zawiera kontrolery RESTowe.
 ## Zawartość commona
-- `EntityBase` - Klasa po której powinny dziedziczyć wszystkie encje (@Entity). Zawiera pole `id` typu long
+- folder `communication` - Klasy reprezentujące abstrakcyjną wiadomość, listenera i sendera RabbitMQ
 - `AbstractMapper` - Interfejs do konwertowania encji na klasy wyjściowe dto.
 - `Address` - Encja typu embeddable reprezentująca adres
 - `AddressDto` - Dto adresu
+- `BusinessException` - Klasa wyjątku po którym dziedziczyć wszystkie błędy biznesowe
+- `EntityBase` - Klasa po której powinny dziedziczyć wszystkie encje (@Entity). Zawiera pole `id` typu long
+- `ErrorDto` - Klasa reprezentująca błąd zwracany przez system. Zawiera kod błędu i wiadomość.
+- `ResponseDto` - Klasa generyczna, którą powinien zwracać każdy endpoint. Zawiera albo odpowiedź albo obiekt klasy `ErrorDto`
+- `WebControllerAdvice` - Aspekt wyłapujący wyjątki, które wydostały się poza wartwe webową. Zamienia je w obiekty klasy `GenericResponseDto`
 ## Założenia programistyczne i stylistyczne
 ### Ogólne
 - Typ `Optional<T>` jest preferowany niż konstrukcje typu `if (x == null)`
@@ -90,3 +95,6 @@ TODO diagram jak będzie już gotowe na 100 pro
   
 ## TODO
 - Struktura modelu (plus diagramy)
+- Rabbit transaction rollback
+- @PreAuthorize
+- Podzielić pakiety na część landlorda i wynajmującego
