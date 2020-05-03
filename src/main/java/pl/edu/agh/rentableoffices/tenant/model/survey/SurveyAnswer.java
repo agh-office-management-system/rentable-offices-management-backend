@@ -27,7 +27,7 @@ public class SurveyAnswer extends EntityBase {
     @JoinColumn(name = "survey_id")
     private Survey survey;
 
-    @OneToMany(mappedBy = "surveyAnswer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Answer> answers;
 
     private boolean answered;

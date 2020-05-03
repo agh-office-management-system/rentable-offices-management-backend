@@ -9,7 +9,6 @@ import pl.edu.agh.rentableoffices.tenant.model.survey.Question;
 
 import javax.persistence.*;
 
-//TODO generic
 @Entity
 @Table(name = "answer")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -21,6 +20,5 @@ public abstract class Answer<T> extends EntityBase {
     @ManyToOne
     protected Question question;
 
-    protected T value;
-
+    public abstract T getValue();
 }

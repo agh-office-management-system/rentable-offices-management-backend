@@ -21,20 +21,33 @@ public class WebControllerAdvice {
 
     @ExceptionHandler(AccessDeniedException.class)
     @ResponseStatus(code = HttpStatus.FORBIDDEN)
-    public ResponseDto<AccessDeniedException> handleAccessDenied(AccessDeniedException exception) {
+    public ResponseDto<Void> handleAccessDenied(AccessDeniedException exception) {
         return ResponseDto.error("ACCESS_DENIED");
+    }
+
+    @ExceptionHandler(IllegalStateException.class)
+    @ResponseStatus(code = HttpStatus.FORBIDDEN)
+    public ResponseDto<Void> handleIllegalState(IllegalStateException exception) {
+        return ResponseDto.error("ILLEGAL_STATE");
+    }
+
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    @ResponseStatus(code = HttpStatus.FORBIDDEN)
+    public ResponseDto<Void> handleIllegalArgument(IllegalArgumentException exception) {
+        return ResponseDto.error("ILLEGAL_ARGUMENT");
     }
 
     @ExceptionHandler(BusinessException.class)
     @ResponseStatus(code = HttpStatus.OK)
-    public ResponseDto<BusinessException> handleBusinessException(BusinessException exception) {
+    public ResponseDto<Void> handleBusinessException(BusinessException exception) {
         String message = messageSource.getMessage(exception.getCode(), exception.getParams(), Locale.getDefault());
         return ResponseDto.error(exception.getCode(), message);
     }
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
-    public ResponseDto<IllegalStateException> illegalStateException(Exception exception) {
+    public ResponseDto<Void> illegalStateException(Exception exception) {
         log.error("Unexpected exception occured", exception);
         String message = messageSource.getMessage("UNEXPECTED_EXCEPTION", new Object[]{}, Locale.getDefault());
         return ResponseDto.error("UNEXPECTED_EXCEPTION", message);
