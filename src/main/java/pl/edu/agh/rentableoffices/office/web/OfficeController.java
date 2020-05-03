@@ -13,7 +13,7 @@ import pl.edu.agh.rentableoffices.tenant.exception.TenantNotFoundException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/apartment")
+@RequestMapping("/api/office")
 @RequiredArgsConstructor
 public class OfficeController {
     private final OfficeCreateService officeCreateService;

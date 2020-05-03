@@ -6,17 +6,24 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import pl.edu.agh.rentableoffices.common.AddressDto;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class UpdateOfficeCommand {
 
+    @Positive
     private Integer newRoomCount;
 
-    private Float newArea;
+    @Positive
+    private Double newArea;
 
+    @Positive
     private Integer newMaxTenants;
 
+    @NotNull
     private AddressDto newAddress;
 }

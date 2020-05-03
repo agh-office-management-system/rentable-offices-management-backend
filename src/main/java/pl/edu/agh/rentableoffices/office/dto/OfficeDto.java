@@ -20,7 +20,7 @@ public class OfficeDto {
     private Integer roomCount;
 
     @Positive
-    private Float area;
+    private Double area;
 
     @Embedded
     private AddressDto address;

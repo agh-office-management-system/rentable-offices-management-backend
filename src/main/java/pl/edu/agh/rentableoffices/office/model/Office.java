@@ -14,6 +14,7 @@ import pl.edu.agh.rentableoffices.tenant.model.Tenant;
 import javax.persistence.*;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class Office extends EntityBase {
     private Integer roomCount;
 
     @Positive
-    private Float area;
+    private Double area;
 
     @Embedded
     private Address address;
@@ -45,12 +46,12 @@ public class Office extends EntityBase {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OfficeHistory> history;
 
-    public static Office create(Integer floor, Integer roomCount, Float area, Integer maxTenants, Address address) {
+    public static Office create(Integer floor, Integer roomCount, Double area, Integer maxTenants, Address address) {
         OfficeHistory history = OfficeHistory.created();
-        return new Office(floor, roomCount, area, address, Collections.emptyList(), maxTenants, List.of(history));
+        return new Office(floor, roomCount, area, address, Collections.emptyList(), maxTenants, Arrays.asList(history));
     }
 
-    public void update(Integer newRoomCount, Float newArea, Integer maxTenants, AddressDto newAddress) {
+    public void update(Integer newRoomCount, Double newArea, Integer maxTenants, AddressDto newAddress) {
         //TODO validation other than != null
         if(newRoomCount != null) {
             this.roomCount = newRoomCount;

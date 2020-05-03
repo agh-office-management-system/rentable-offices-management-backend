@@ -23,8 +23,13 @@ services:
 
   db_admin:
     container_name: offices_db_admin
-    image: adminer
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
     restart: always
     ports:
-      - 8089:8080
+      - 5050:80
 

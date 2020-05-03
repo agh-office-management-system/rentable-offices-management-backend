@@ -1,18 +1,18 @@
 package pl.edu.agh.rentableoffices.office.model;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import pl.edu.agh.rentableoffices.common.EntityBase;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "office_history")
 @Getter
+@Setter(value = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class OfficeHistory extends EntityBase {
@@ -21,13 +21,14 @@ public class OfficeHistory extends EntityBase {
 
     private String additionalInfo;
 
+    @Column
     private LocalDateTime createdAt;
 
     //TODO createdBy uzupełnić
     private String createdBy;
 
     public static OfficeHistory created() {
-        return new OfficeHistory(OfficeHistoryType.CREATED, null, LocalDateTime.now(), null);
+        return new OfficeHistory( OfficeHistoryType.CREATED, null, LocalDateTime.now(), null);
     }
 
     //TODO payload

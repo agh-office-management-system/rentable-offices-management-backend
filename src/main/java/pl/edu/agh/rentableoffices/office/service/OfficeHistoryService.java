@@ -17,8 +17,8 @@ import java.util.List;
 @Transactional
 @RequiredArgsConstructor
 public class OfficeHistoryService {
-    private OfficeHistoryMapper mapper;
-    private OfficeRepository repository;
+    private final OfficeHistoryMapper mapper;
+    private final OfficeRepository repository;
 
     public List<OfficeHistoryDto>  getOfficeHistory(@NotNull Long officeId) throws OfficeNotFoundException {
         return mapper.toDtoList(repository.get(officeId).getHistory());

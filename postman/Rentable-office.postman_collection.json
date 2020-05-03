@@ -6,81 +6,128 @@
 	},
 	"item": [
 		{
-			"name": "Create Apartment",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"floor\": 0,\n\t\"roomCount\": 1,\n\t\"area\": 120.5,\n\t\"address\": {\n\t\t\"number\": \"62a\",\n\t\t\"street\": \"Siewna\",\n\t\t\"city\": \"Kraków\",\n\t\t\"postalCode\": \"31-231\"\n\t}\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "Office",
+			"item": [
+				{
+					"name": "Create Office",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"floor\": 0,\n\t\"roomCount\": 1,\n\t\"area\": 120.5,\n\t\"address\": {\n\t\t\"number\": \"62b\",\n\t\t\"street\": \"Siewna\",\n\t\t\"city\": \"Kraków\",\n\t\t\"postalCode\": \"31-231\"\n\t}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9080/api/office",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"api",
+								"office"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "localhost:8080/api/apartment",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"apartment"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get apartment by id",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:8080/api/apartment/1",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"apartment",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Update apartment",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"newRoomCount\": 2,\n\t\"newAddress\": {\n\t\t\"number\": \"62\",\n\t\t\"street\": \"Siewna\",\n\t\t\"city\": \"Kraków\",\n\t\t\"postalCode\": \"31-231\"\n\t}\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+				{
+					"name": "Get apartment by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9080/api/office/1",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"api",
+								"office",
+								"1"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "localhost:8080/api/apartment/1",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"apartment",
-						"1"
-					]
+				{
+					"name": "Update apartment",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"newRoomCount\": 2,\n\t\"newAddress\": {\n\t\t\"number\": \"62\",\n\t\t\"street\": \"Siewna\",\n\t\t\"city\": \"Kraków\",\n\t\t\"postalCode\": \"31-231\"\n\t}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9080/api/office/1",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"api",
+								"office",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get office history",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9080/api/office/report/1",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"api",
+								"office",
+								"report",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get capacity reports",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9080/api/office/report",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"api",
+								"office",
+								"report"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			],
+			"protocolProfileBehavior": {}
 		}
 	],
 	"protocolProfileBehavior": {}

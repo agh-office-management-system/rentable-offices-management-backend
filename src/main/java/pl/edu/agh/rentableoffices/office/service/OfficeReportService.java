@@ -15,8 +15,8 @@ import java.util.List;
 @Transactional
 @RequiredArgsConstructor
 public class OfficeReportService {
-    private OfficeRepository repository;
-    private OfficeReportMapper mapper;
+    private final OfficeRepository repository;
+    private final OfficeReportMapper mapper;
 
     public List<OfficeReportDto> createOfficeReport() {
         return mapper.toDtoList(repository.findAll());

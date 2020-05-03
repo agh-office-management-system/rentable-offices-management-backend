@@ -2,8 +2,11 @@ package pl.edu.agh.rentableoffices.common;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Getter
+
 public class ResponseDto<T> {
     private T response;
     private ErrorDto error;

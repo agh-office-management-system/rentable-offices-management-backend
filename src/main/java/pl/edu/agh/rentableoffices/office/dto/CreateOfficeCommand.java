@@ -25,7 +25,7 @@ public class CreateOfficeCommand {
     private Integer maxTenants;
 
     @Positive
-    private Float area;
+    private Double area;
 
     @NotNull
     private AddressDto address;

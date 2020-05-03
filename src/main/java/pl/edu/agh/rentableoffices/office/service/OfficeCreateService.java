@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 @Transactional
 @RequiredArgsConstructor
 public class OfficeCreateService {
-    private OfficeRepository repository;
+    private final OfficeRepository repository;
 
     public Long create(@NotNull CreateOfficeCommand command) throws AddressAlreadyExistsException {
         Address address = Address.fromDto(command.getAddress());
