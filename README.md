@@ -37,8 +37,8 @@ TODO diagram jak będzie już gotowe na 100 pro
 ## Struktura pakietów
 - Pakiet nadrzędny `pl.edu.agh.rentableoffices`
   - `common` -> Dzielone funkcjonalności
-  - `apartment` -> Zarządzanie lokalami 
-## Struktura przykładowego pakietu (apartment)
+  - `office` -> Zarządzanie lokalami 
+## Struktura przykładowego pakietu (office)
 - `dao` -> Warstwa repozytoriów (dostępu do danych)
 - `dto` -> Klasy DTO (Data Transfer Object) do przyjmowania z frontu/zwracania przez back/wysyłania po rabbicie
 - `mapper` -> Konwersja Encji na DTO
@@ -98,3 +98,9 @@ TODO diagram jak będzie już gotowe na 100 pro
 - Rabbit transaction rollback
 - @PreAuthorize
 - Podzielić pakiety na część landlorda i wynajmującego
+
+
+- Sciezka 15
+- Sciezka 16
+- Sciezka 18
+- Sciezka 19
