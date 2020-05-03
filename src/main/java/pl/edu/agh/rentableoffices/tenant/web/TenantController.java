@@ -11,11 +11,10 @@ import pl.edu.agh.rentableoffices.tenant.service.*;
 @RequestMapping("/api/tenant")
 @RequiredArgsConstructor
 public class TenantController {
-    private CreateTenantService createTenantService;
-    private TenantDetailsService tenantDetailsService;
-    private TenantUpdateService tenantUpdateService;
-    private TenantMessageService tenantMessageService;
-    private TenantSurveyService tenantSurveyService;
+    private final CreateTenantService createTenantService;
+    private final TenantDetailsService tenantDetailsService;
+    private final TenantUpdateService tenantUpdateService;
+    private final TenantMessageService tenantMessageService;
 
     @PostMapping
     //TODO  Pracownik administracji
@@ -31,7 +30,7 @@ public class TenantController {
     }
 
     @GetMapping("/{id}")
-    public ResponseDto<TenantDto> get(@PathVariable Long id) {
+    public ResponseDto<TenantDto> get(@PathVariable Long id) throws TenantNotFoundException {
         return ResponseDto.success(tenantDetailsService.get(id));
     }
 
@@ -41,30 +40,10 @@ public class TenantController {
         return ResponseDto.success();
     }
 
-    //TODO landlord
     @PutMapping("/{id}/verify")
+    //TODO - Tenant
     public ResponseDto<Void> verify(@PathVariable Long id, @RequestBody VerifyTenantCommand command) throws TenantNotFoundException {
         tenantUpdateService.verify(id, command);
         return ResponseDto.success();
     }
-
-    @PostMapping("/survey")
-    //TODO Pracownik administracji
-    public ResponseDto<Long> createSurvey(@RequestBody CreateSurveyCommand command){
-        return ResponseDto.success(tenantSurveyService.createSurvey(command));
-    }
-
-    @PostMapping("/survey/{id}")
-    public ResponseDto<Void> submitSurvey(@PathVariable Long id, @RequestBody SubmitSurveyCommand command) {
-        tenantSurveyService.submitSurvey(id, command);
-        return ResponseDto.success();
-    }
-
-    @PostMapping("/survey/{id}/reject")
-    public ResponseDto<Void> rejectSurvey(@PathVariable Long id) {
-        tenantSurveyService.rejectSurvey(id);
-        return ResponseDto.success();
-    }
-
-
 }

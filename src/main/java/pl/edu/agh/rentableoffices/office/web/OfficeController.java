@@ -3,9 +3,12 @@ package pl.edu.agh.rentableoffices.office.web;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.agh.rentableoffices.office.dto.*;
+import pl.edu.agh.rentableoffices.office.exception.AddressAlreadyExistsException;
+import pl.edu.agh.rentableoffices.office.exception.MaxOfficeCapacityReachedException;
 import pl.edu.agh.rentableoffices.office.exception.OfficeNotFoundException;
 import pl.edu.agh.rentableoffices.office.service.*;
 import pl.edu.agh.rentableoffices.common.ResponseDto;
+import pl.edu.agh.rentableoffices.tenant.exception.TenantNotFoundException;
 
 import java.util.List;
 
@@ -26,22 +29,31 @@ public class OfficeController {
 
     @PostMapping
     //TODO - Pracownik administracji
-    public ResponseDto<Long> create(@RequestBody CreateOfficeCommand request) {
+    public ResponseDto<Long> create(@RequestBody CreateOfficeCommand request) throws AddressAlreadyExistsException {
         return ResponseDto.success(officeCreateService.create(request));
     }
 
     @PutMapping("/{id}")
     //TODO - Pracownik administracji
-    //TODO - Jeżeli lokal jest zajmowany przez najemcę, informacja jest przekazywana do najemcy.
-    public ResponseDto<Void> update(@PathVariable Long id, @RequestBody UpdateOfficeCommand request) {
+    public ResponseDto<Void> update(@PathVariable Long id, @RequestBody UpdateOfficeCommand request)
+            throws OfficeNotFoundException {
         officeUpdateService.update(id, request);
         return ResponseDto.success();
     }
 
     @PutMapping("/{id}/tenant/{tenantId}")
     //TODO - Pracownik administracji
-    public ResponseDto<Void> assignTenant(@PathVariable Long id, @PathVariable Long tenantId) {
+    public ResponseDto<Void> assignTenant(@PathVariable Long id, @PathVariable Long tenantId)
+            throws TenantNotFoundException, OfficeNotFoundException, MaxOfficeCapacityReachedException {
         officeUpdateService.assignTenant(id, tenantId);
+        return ResponseDto.success();
+    }
+
+    @DeleteMapping("/{id}/tenant/{tenantId}")
+    //TODO - Pracownik administracji
+    public ResponseDto<Void> removeTenant(@PathVariable Long id, @PathVariable Long tenantId)
+            throws OfficeNotFoundException, TenantNotFoundException {
+        officeUpdateService.removeTenant(id, tenantId);
         return ResponseDto.success();
     }
 

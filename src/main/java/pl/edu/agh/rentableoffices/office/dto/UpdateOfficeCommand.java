@@ -16,5 +16,7 @@ public class UpdateOfficeCommand {
 
     private Float newArea;
 
+    private Integer newMaxTenants;
+
     private AddressDto newAddress;
 }

@@ -1,15 +1,22 @@
 package pl.edu.agh.rentableoffices.tenant.model;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import pl.edu.agh.rentableoffices.common.EntityBase;
 import pl.edu.agh.rentableoffices.office.model.Office;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "Tenant")
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Tenant extends EntityBase {
     private String firstName;
     private String lastName;
@@ -23,11 +30,19 @@ public class Tenant extends EntityBase {
 
     private TenantStatus status;
     private String rejectedReason;
+    //TODO remove
     private String login;
 
     @ManyToOne
     @JoinColumn(name = "office_id")
     private Office office;
+
+    public static Tenant create(
+            String firstName, String lastName, boolean isPrivate, IdType idType, String idDocumentNumber,
+            PreferredMeansOfCommunication preferredMeansOfCommunication, String phoneNumber, String email, String login) {
+        return new Tenant(firstName, lastName, isPrivate, idDocumentNumber, idType, preferredMeansOfCommunication,
+                phoneNumber, email, TenantStatus.CREATED, null, login, null);
+    }
 
     public void verify() {
         if(status != TenantStatus.CREATED) {

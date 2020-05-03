@@ -22,6 +22,9 @@ public class CreateOfficeCommand {
     private Integer roomCount;
 
     @Positive
+    private Integer maxTenants;
+
+    @Positive
     private Float area;
 
     @NotNull

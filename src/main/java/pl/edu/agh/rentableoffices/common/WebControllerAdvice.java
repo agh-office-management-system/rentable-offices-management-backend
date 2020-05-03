@@ -12,6 +12,7 @@ import java.nio.file.AccessDeniedException;
 import java.util.Locale;
 
 //TODO locale
+//TODO i18n + Spisanie kodów błedów
 @RestControllerAdvice
 @RequiredArgsConstructor
 @Slf4j

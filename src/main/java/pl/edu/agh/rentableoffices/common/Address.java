@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import java.util.Objects;
 
 @Embeddable
 @Getter
@@ -40,8 +41,26 @@ public class Address {
         this.country = dto.getCountry();
     }
 
+
     @Override
     public String toString() {
         return street + " " + number + ", " + postalCode + " " + city;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Address address = (Address) o;
+        return Objects.equals(getNumber(), address.getNumber()) &&
+                Objects.equals(getStreet(), address.getStreet()) &&
+                Objects.equals(getCity(), address.getCity()) &&
+                Objects.equals(getPostalCode(), address.getPostalCode()) &&
+                Objects.equals(getCountry(), address.getCountry());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getNumber(), getStreet(), getCity(), getPostalCode(), getCountry());
     }
 }

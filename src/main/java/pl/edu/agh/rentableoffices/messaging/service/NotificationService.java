@@ -8,6 +8,7 @@ import pl.edu.agh.rentableoffices.messaging.dto.NotificationDto;
 import pl.edu.agh.rentableoffices.messaging.mapper.NotificationMapper;
 import pl.edu.agh.rentableoffices.messaging.model.Notification;
 import pl.edu.agh.rentableoffices.messaging.model.NotificationType;
+import pl.edu.agh.rentableoffices.tenant.model.Tenant;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -27,6 +28,14 @@ public class NotificationService {
 
     public void notifyAdministration(NotificationType type, Object[] payload) {
         //TODO
+    }
+
+    public void notifyTenant(Tenant tenant, NotificationType type, Object[] payload) {
+
+    }
+
+    public void notifyTenants(List<Tenant> tenants, NotificationType type, Object[] payload) {
+
     }
 
     public List<NotificationDto> getNotifications(String username) {

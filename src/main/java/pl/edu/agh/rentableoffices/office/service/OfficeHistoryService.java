@@ -9,6 +9,7 @@ import pl.edu.agh.rentableoffices.office.exception.OfficeNotFoundException;
 import pl.edu.agh.rentableoffices.office.mapper.OfficeHistoryMapper;
 
 import javax.transaction.Transactional;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Slf4j
@@ -19,7 +20,7 @@ public class OfficeHistoryService {
     private OfficeHistoryMapper mapper;
     private OfficeRepository repository;
 
-    public List<OfficeHistoryDto>  getOfficeHistory(Long officeId) throws OfficeNotFoundException {
+    public List<OfficeHistoryDto>  getOfficeHistory(@NotNull Long officeId) throws OfficeNotFoundException {
         return mapper.toDtoList(repository.get(officeId).getHistory());
     }
 }
