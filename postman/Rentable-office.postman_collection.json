@@ -15,7 +15,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"floor\": 0,\n\t\"roomCount\": 1,\n\t\"area\": 120.5,\n\t\"address\": {\n\t\t\"number\": \"62b\",\n\t\t\"street\": \"Siewna\",\n\t\t\"city\": \"Kraków\",\n\t\t\"postalCode\": \"31-231\"\n\t}\n}",
+							"raw": "{\n\t\"floor\": 0,\n\t\"roomCount\": 1,\n\t\"area\": 120.5,\n\t\"maxTenants\":3,\n\t\"address\": {\n\t\t\"number\": \"62b\",\n\t\t\"street\": \"Siewna\",\n\t\t\"city\": \"Kraków\",\n\t\t\"postalCode\": \"31-231\"\n\t}\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -121,6 +121,192 @@
 								"api",
 								"office",
 								"report"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Tenant",
+			"item": [
+				{
+					"name": "Create tenant",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"tanant@tenant.pl\",\r\n  \"firstName\": \"John\",\r\n  \"idDocumentNumber\": \"12345\",\r\n  \"idType\": \"PESEL\",\r\n  \"lastName\": \"Doe\",\r\n  \"login\": \"JDoe@ourapp.pl\",\r\n  \"phoneNumber\": \"123456789\",\r\n  \"preferredMeansOfCommunication\": \"SMS\",\r\n  \"private\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9080/api/tenant",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"api",
+								"tenant"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit tenant",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"tanant@tenant.pl\",\r\n  \"firstName\": \"John\",\r\n  \"idDocumentNumber\": \"12345\",\r\n  \"idType\": \"PESEL\",\r\n  \"lastName\": \"Doe\",\r\n  \"login\": \"JDoe@ourapp.pl\",\r\n  \"phoneNumber\": \"123456789\",\r\n  \"preferredMeansOfCommunication\": \"SMS\",\r\n  \"private\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9080/api/tenant/1",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"api",
+								"tenant",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify tenant",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"accepted\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9080/api/tenant/1/verify",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"api",
+								"tenant",
+								"1",
+								"verify"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get tenant",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9080/api/tenant/1",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"api",
+								"tenant",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Assign tenant to office",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "localhost:9080/api/office/1/tenant/1",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"api",
+								"office",
+								"1",
+								"tenant",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove tenant from the office",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:9080/api/office/1/tenant/1",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"api",
+								"office",
+								"1",
+								"tenant",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create message for tenants",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"tenantIds\": [1],\n\t\"content\": \"hello world\",\n\t\"from\": \"admin\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9080/api/tenant/message",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"api",
+								"tenant",
+								"message"
 							]
 						}
 					},

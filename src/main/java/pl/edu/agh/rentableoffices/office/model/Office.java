@@ -37,7 +37,7 @@ public class Office extends EntityBase {
     @Embedded
     private Address address;
 
-    @OneToMany(mappedBy = "office", cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Tenant> tenants;
 
     @Positive
@@ -70,7 +70,7 @@ public class Office extends EntityBase {
     }
 
     public void assignTenant(Tenant tenant) throws MaxOfficeCapacityReachedException {
-        if(this.getTenants().size() == this.getMaxTenants()) {
+        if(maxTenants != null && tenants.size() == maxTenants) {
             throw new MaxOfficeCapacityReachedException(this.getId());
         }
         this.tenants.add(tenant);

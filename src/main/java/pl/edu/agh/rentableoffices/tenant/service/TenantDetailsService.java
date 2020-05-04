@@ -14,8 +14,8 @@ import javax.validation.constraints.NotNull;
 @Transactional
 @RequiredArgsConstructor
 public class TenantDetailsService {
-    private TenantRepository repository;
-    private TenantMapper mapper;
+    private final TenantRepository repository;
+    private final TenantMapper mapper;
 
     public TenantDto get(@NotNull Long id) throws TenantNotFoundException {
         return mapper.toDto(repository.get(id));

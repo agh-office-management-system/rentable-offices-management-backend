@@ -34,7 +34,6 @@ public class Tenant extends EntityBase {
     private String login;
 
     @ManyToOne
-    @JoinColumn(name = "office_id")
     private Office office;
 
     public static Tenant create(

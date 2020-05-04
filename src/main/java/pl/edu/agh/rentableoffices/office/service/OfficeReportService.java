@@ -18,6 +18,7 @@ public class OfficeReportService {
     private final OfficeRepository repository;
     private final OfficeReportMapper mapper;
 
+    //TODO bug
     public List<OfficeReportDto> createOfficeReport() {
         return mapper.toDtoList(repository.findAll());
     }

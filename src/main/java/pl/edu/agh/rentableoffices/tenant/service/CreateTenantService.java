@@ -1,6 +1,7 @@
 package pl.edu.agh.rentableoffices.tenant.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pl.edu.agh.rentableoffices.tenant.dao.TenantRepository;
 import pl.edu.agh.rentableoffices.tenant.dto.CreateTenantCommand;
@@ -9,6 +10,7 @@ import pl.edu.agh.rentableoffices.tenant.model.Tenant;
 
 import javax.transaction.Transactional;
 
+@Slf4j
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -23,6 +25,7 @@ public class CreateTenantService {
                 command.getIdType(), command.getIdDocumentNumber(), command.getPreferredMeansOfCommunication(),
                 command.getPhoneNumber(), command.getEmail(), command.getLogin());
         tenant = repository.save(tenant);
+        log.info("Tenant {} created", tenant.getEmail());
         try{
             messageService.createMessageForTenant(tenant.getId(), "PLEASE_VERIFY");
         } catch (TenantNotFoundException e) {

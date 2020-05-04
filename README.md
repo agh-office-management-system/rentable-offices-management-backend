@@ -12,6 +12,7 @@ TODO diagram jak będzie już gotowe na 100 pro
 - Tomcat
 - Docker
 - PostgreSQL
+- Swagger
 ## Lista funkcji
 - Dodawanie biura
 - Pobranie szczegółów biura
@@ -32,7 +33,7 @@ TODO diagram jak będzie już gotowe na 100 pro
 
 ## Testy REST API
 - W folderze `postman` znajduje się kolekcja requestów programu [Postman](https://www.postman.com/)
-
+- Po uruchomieniu dostępny jest również Swagger pod adresem `localhost:9080/swagger-ui.html`
 # Kod
 ## Struktura pakietów
 - Pakiet nadrzędny `pl.edu.agh.rentableoffices`
@@ -98,9 +99,4 @@ TODO diagram jak będzie już gotowe na 100 pro
 - Rabbit transaction rollback
 - @PreAuthorize
 - Podzielić pakiety na część landlorda i wynajmującego
-
-
-- Sciezka 15
-- Sciezka 16
-- Sciezka 18
-- Sciezka 19
+- Notification service
