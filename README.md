@@ -4,7 +4,7 @@ Projekt do zarządzania wynajmem biur.
 TODO diagram jak będzie już gotowe na 100 pro
 - Aplikacja jest monolitem działającym jako serwlet Springa na wbudowanym serwerze Tomcat. 
 - Udostępnia ona API RESTowe jako swój interfejs.
-- Moduły wynajmującego i najemcy komunikują się między sobą asynchronicznie poprzez kolejkę komunikatów.
+- (TODO) Moduły wynajmującego i najemcy komunikują się między sobą asynchronicznie poprzez kolejkę komunikatów.
 ## Stos technologiczny
 - Java
 - REST
@@ -17,6 +17,11 @@ TODO diagram jak będzie już gotowe na 100 pro
 - Dodawanie biura
 - Pobranie szczegółów biura
 - Uaktualnienie danych biura
+- Tworzenie i weryfikacja profilu najemcy
+- Przypisanie i usunięcie najemcy z biura
+- Tworzenie ankiety dla najemców i możliwość odpowiadania na nia
+- Generowanie raportu zajętości lokali
+- Pobieranie historii lokali
 # Uruchamianie
 ## Prerequisites
 - Java 13
@@ -25,34 +30,45 @@ TODO diagram jak będzie już gotowe na 100 pro
 ## Serwisy
 - W folderze `docker` jest plik docker compose (uruchomienie `docker-compose up`)
 - Po uruchomieniu poza bazą i rabbitem, są również ich panele zarządzania
-  - Rabbit: localhost:15672 (user: user, password: bitnami)
-  - Postgres: localhost:8089 (user: postgres, password: postgres, db: offices)
+  - Rabbit: `localhost:15672` (user: `user`, password: `bitnami`)
+  - Postgres: `localhost:5050` (user: `pgadmin4@pgadmin.org`, password: `admin`)
 ## Aplikacja
 - CMD: `mvn clean install` żeby zbudować, `mvn spring-boot:run` żeby uruchomić
 - IntelliJ: Run -> Edit configurations -> Dodać nowy Spring Boot. Potem Run -> Run/Debug RentableOffices application
+- Aplikacja uruchamia się domyślnie pod portem `9080`
+- Listę dostępnych endpointów można podejrzeć w Swaggerze (punkt niżej)
 
 ## Testy REST API
 - W folderze `postman` znajduje się kolekcja requestów programu [Postman](https://www.postman.com/)
-- Po uruchomieniu dostępny jest również Swagger pod adresem `localhost:9080/swagger-ui.html`
+- Po uruchomieniu dostępny jest również UI programu Swagger pod adresem `localhost:9080/swagger-ui.html`
+
 # Kod
 ## Struktura pakietów
 - Pakiet nadrzędny `pl.edu.agh.rentableoffices`
   - `common` -> Dzielone funkcjonalności
+  - `configuration` -> Konfiguracja programu
+  - `messaging` -> Zarządzanie wiadomościami w systemie
   - `office` -> Zarządzanie lokalami 
+  - `security` -> (TODO) Zarządzanie uprawnieniami
+  - `tenant` -> Zarządzanie najemcami
+  - `user` -> Zarządzanie użytkownikami
 ## Struktura przykładowego pakietu (office)
 - `dao` -> Warstwa repozytoriów (dostępu do danych)
 - `dto` -> Klasy DTO (Data Transfer Object) do przyjmowania z frontu/zwracania przez back/wysyłania po rabbicie
+- `exception` -> Wyjątki wyrzucane przez moduł
 - `mapper` -> Konwersja Encji na DTO
 - `model` -> Warstwa modelu. Zawiera encje itp.
 - `service` -> Zawiera serwisy (włączając listenery i sendery z rabbita)
 - `web` -> Zawiera kontrolery RESTowe.
 ## Zawartość commona
 - folder `communication` - Klasy reprezentujące abstrakcyjną wiadomość, listenera i sendera RabbitMQ
+- folder `service` - Standardowe serwisy np. TranslatorService
 - `AbstractMapper` - Interfejs do konwertowania encji na klasy wyjściowe dto.
 - `Address` - Encja typu embeddable reprezentująca adres
 - `AddressDto` - Dto adresu
-- `BusinessException` - Klasa wyjątku po którym dziedziczyć wszystkie błędy biznesowe
+- `BusinessException` oraz `BusinessRuntimeException`- Klasy wyjątków po którym dziedziczyć wszystkie błędy biznesowe
 - `EntityBase` - Klasa po której powinny dziedziczyć wszystkie encje (@Entity). Zawiera pole `id` typu long
+- `JpaConvertedJson` - Konwerwer JPA Obiekt -> Json gdyby zaszła potrzeba trzymania danych jako json w bazie danych
 - `ErrorDto` - Klasa reprezentująca błąd zwracany przez system. Zawiera kod błędu i wiadomość.
 - `ResponseDto` - Klasa generyczna, którą powinien zwracać każdy endpoint. Zawiera albo odpowiedź albo obiekt klasy `ErrorDto`
 - `WebControllerAdvice` - Aspekt wyłapujący wyjątki, które wydostały się poza wartwe webową. Zamienia je w obiekty klasy `GenericResponseDto`
