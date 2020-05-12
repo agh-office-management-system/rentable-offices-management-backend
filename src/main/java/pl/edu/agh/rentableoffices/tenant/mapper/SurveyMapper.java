@@ -18,11 +18,7 @@ public class SurveyMapper implements AbstractMapper<Survey, SurveyDto> {
                 .name(entity.getName())
                 .questions(entity.getQuestions()
                         .stream()
-                        .map(q -> QuestionDto.builder()
-                                .code(q.getCode())
-                                .value(q.getValue())
-                                .type(q.getType())
-                                .build())
+                        .map(QuestionDto::create)
                         .collect(Collectors.toSet())
                 )
                 .build();

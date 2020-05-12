@@ -5,5 +5,4 @@ import pl.edu.agh.rentableoffices.tenant.model.survey.Survey;
 import pl.edu.agh.rentableoffices.tenant.model.survey.answer.Answer;
 
 public interface AnswerRepository extends JpaRepository<Answer, Long> {
-    Answer findByQuestionCodeAndQuestionSurvey(String code, Survey survey);
 }

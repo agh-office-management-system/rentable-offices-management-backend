@@ -311,6 +311,73 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Create Survey",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Survey",
+			"item": [
+				{
+					"name": "Create Survey",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Ankieta 1\",\n\t\"description\": \"Opis ankiety\",\n\t\"questions\": [\n\t\t{\n\t\t\t\"code\": \"Q1\",\n\t\t\t\"value\": \"Pytanie 1\",\n\t\t\t\"type\": \"BOOLEAN\"\t\t\t\n\t\t}, {\n\t\t\t\"code\": \"Q2\",\n\t\t\t\"value\": \"Pytanie 2\",\n\t\t\t\"type\": \"RANGE\",\n\t\t\t\"min\": 1,\n\t\t\t\"max\": 10\n\t\t}, {\n\t\t\t\"code\": \"Q3\",\n\t\t\t\"value\": \"Pytanie 3\",\n\t\t\t\"type\": \"STRING\"\t\n\t\t}\n\t],\n\t\"tenantIds\": [\n\t\t1\n\t]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9080/api/tenant/survey",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"api",
+								"tenant",
+								"survey"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Survey",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9080/api/tenant/survey/1",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"api",
+								"tenant",
+								"survey",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}

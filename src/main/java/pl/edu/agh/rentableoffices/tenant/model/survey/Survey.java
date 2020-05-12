@@ -5,10 +5,7 @@ import pl.edu.agh.rentableoffices.common.EntityBase;
 import pl.edu.agh.rentableoffices.tenant.dto.survey.QuestionDto;
 import pl.edu.agh.rentableoffices.tenant.model.Tenant;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -23,17 +20,18 @@ public class Survey extends EntityBase {
     private String name;
     private String description;
 
-    @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "survey_id")
     @Setter(value = AccessLevel.PRIVATE)
-    private Set<Question> questions;
+    private Set<Question> questions = new HashSet<>();
 
     @OneToMany
-    private Set<Tenant> target;
+    private Set<Tenant> target = new HashSet<>();
 
     public static Survey create(String name, String description, Set<QuestionDto> questions, List<Tenant> tenants) {
         Survey survey = new Survey(name, description, null, new HashSet<>(tenants));
         Set<Question> entityQuestions = questions.stream()
-                .map(q -> Question.create(survey, q.getCode(), q.getValue(), q.getType()))
+                .map(q -> QuestionCreator.create(survey, q))
                 .collect(Collectors.toSet());
         survey.setQuestions(entityQuestions);
         return survey;

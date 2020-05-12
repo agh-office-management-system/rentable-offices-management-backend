@@ -39,6 +39,7 @@ public class TenantSurveyService {
                 command.getQuestions(), tenants);
         survey = repository.save(survey);
         notificationService.notifyTenants(tenants, NotificationType.SURVEY_CREATED, new Object[]{survey.getId()});
+        log.info("Survey \"{}\" created.",command.getName());
         return survey.getId();
     }
 

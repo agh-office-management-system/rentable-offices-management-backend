@@ -1,33 +1,23 @@
 package pl.edu.agh.rentableoffices.tenant.model.survey;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import pl.edu.agh.rentableoffices.common.EntityBase;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
-@Table(name = "survey")
+@Table(name = "question")
 @Getter
+@Setter(value = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class Question extends EntityBase {
-    @ManyToOne
-    @JoinColumn(name="survey_id")
-    private Survey survey;
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "type")
+public abstract class Question extends EntityBase {
 
     private String code;
 
     private String value;
 
-    private QuestionType type;
-
-    public static Question create(Survey survey, String code, String value, QuestionType type) {
-        return new Question(survey,code,value,type);
-    }
+    public abstract QuestionType getType();
 }
