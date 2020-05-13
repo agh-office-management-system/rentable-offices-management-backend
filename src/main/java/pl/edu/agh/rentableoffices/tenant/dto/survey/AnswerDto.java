@@ -11,6 +11,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AnswerDto {
-    private String questionCode;
+    private String code;
     private Object value;
 }

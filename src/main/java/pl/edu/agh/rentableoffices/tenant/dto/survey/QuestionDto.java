@@ -23,6 +23,8 @@ public abstract class QuestionDto {
 
     protected String value;
 
+    private boolean required = false;
+
     @JsonProperty("type")
     public abstract String getType();
 

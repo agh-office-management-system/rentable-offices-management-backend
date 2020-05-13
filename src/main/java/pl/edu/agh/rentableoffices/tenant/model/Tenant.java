@@ -57,4 +57,8 @@ public class Tenant extends EntityBase {
         this.status = TenantStatus.REJECTED;
         this.rejectedReason = reason;
     }
+
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
 }

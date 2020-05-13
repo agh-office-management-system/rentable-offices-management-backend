@@ -17,12 +17,12 @@ public class RangeQuestion extends Question {
     private int min;
     private int max;
 
-    public static RangeQuestion create(String code, String value, int min, int max) {
-        return new RangeQuestion(code, value, min, max);
+    public static RangeQuestion create(String code, String value, boolean required, int min, int max) {
+        return new RangeQuestion(code, value, required, min, max);
     }
 
-    private RangeQuestion(String code, String value, int min, int max) {
-        super(code, value);
+    private RangeQuestion(String code, String value, boolean required, int min, int max) {
+        super(code, value, required);
         this.min = min;
         this.max = max;
     }

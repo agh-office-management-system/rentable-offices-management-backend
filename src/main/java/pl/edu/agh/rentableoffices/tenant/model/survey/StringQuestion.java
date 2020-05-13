@@ -15,11 +15,11 @@ public class StringQuestion extends Question {
         return QuestionType.STRING;
     }
 
-    public static StringQuestion create(String code, String value) {
-        return new StringQuestion(code, value);
+    public static StringQuestion create(String code, String value, boolean required) {
+        return new StringQuestion(code, value, required);
     }
 
-    private StringQuestion(String code, String value) {
-        super(code, value);
+    private StringQuestion(String code, String value, boolean required) {
+        super(code, value, required);
     }
 }

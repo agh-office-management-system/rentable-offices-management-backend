@@ -45,6 +45,14 @@ public class WebControllerAdvice {
         return ResponseDto.error(exception.getCode(), message);
     }
 
+    @ExceptionHandler(BusinessRuntimeException.class)
+    @ResponseStatus(code = HttpStatus.OK)
+    public ResponseDto<Void> handleBusinessException(BusinessRuntimeException exception) {
+        String message = messageSource.getMessage(exception.getCode(), exception.getParams(), Locale.getDefault());
+        return ResponseDto.error(exception.getCode(), message);
+    }
+
+
     @ExceptionHandler(Exception.class)
     @ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseDto<Void> illegalStateException(Exception exception) {

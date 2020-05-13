@@ -4,8 +4,10 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import pl.edu.agh.rentableoffices.common.BusinessException;
 import pl.edu.agh.rentableoffices.common.EntityBase;
 import pl.edu.agh.rentableoffices.tenant.dto.survey.AnswerDto;
+import pl.edu.agh.rentableoffices.tenant.exception.SurverAnswersNotCompleteException;
 import pl.edu.agh.rentableoffices.tenant.model.Tenant;
 import pl.edu.agh.rentableoffices.tenant.model.survey.answer.Answer;
 
@@ -32,13 +34,18 @@ public class SurveyAnswer extends EntityBase {
 
     private boolean answered;
 
-    public static SurveyAnswer create(Tenant tenant, Survey survey, Set<AnswerDto> answerDtos) {
+    public static SurveyAnswer create(Tenant tenant, Survey survey, Set<AnswerDto> answers) throws SurverAnswersNotCompleteException {
         SurveyAnswer surveyAnswer = new SurveyAnswer();
         surveyAnswer.survey = survey;
         surveyAnswer.tenant = tenant;
-        surveyAnswer.answers = answerDtos.stream()
-                .map(a -> AnswerCreator.create(findQuestion(survey, a.getQuestionCode()), a))
+        surveyAnswer.answers = answers.stream()
+                .map(a -> AnswerCreator.create(findQuestion(survey, a.getCode()), a))
                 .collect(Collectors.toSet());
+
+        if(!allRequiredAnswered(survey, answers)) {
+            throw new SurverAnswersNotCompleteException();
+        }
+
         surveyAnswer.answered = true;
         return surveyAnswer;
     }
@@ -49,6 +56,13 @@ public class SurveyAnswer extends EntityBase {
         surveyAnswer.tenant = tenant;
         surveyAnswer.answered = false;
         return surveyAnswer;
+    }
+
+    private static boolean allRequiredAnswered(Survey survey, Set<AnswerDto> answers) {
+        return survey.getQuestions()
+                .stream()
+                .filter(q -> q.isRequired())
+                .allMatch(q -> answers.stream().anyMatch(a -> a.getCode().equalsIgnoreCase(q.getCode())));
     }
 
     private static Question findQuestion(Survey survey, String code) {

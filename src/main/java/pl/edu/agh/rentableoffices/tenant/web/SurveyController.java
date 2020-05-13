@@ -6,6 +6,7 @@ import pl.edu.agh.rentableoffices.common.ResponseDto;
 import pl.edu.agh.rentableoffices.tenant.dto.survey.CreateSurveyCommand;
 import pl.edu.agh.rentableoffices.tenant.dto.survey.SubmitSurveyCommand;
 import pl.edu.agh.rentableoffices.tenant.dto.survey.SurveyDto;
+import pl.edu.agh.rentableoffices.tenant.exception.SurverAnswersNotCompleteException;
 import pl.edu.agh.rentableoffices.tenant.exception.SurveyNotFoundException;
 import pl.edu.agh.rentableoffices.tenant.exception.TenantNotFoundException;
 import pl.edu.agh.rentableoffices.tenant.service.TenantSurveyService;
@@ -29,12 +30,12 @@ public class SurveyController {
 
     @PostMapping("/{id}")
     public ResponseDto<Void> submitSurvey(@PathVariable Long id, @RequestBody SubmitSurveyCommand command)
-            throws SurveyNotFoundException, TenantNotFoundException {
+            throws SurveyNotFoundException, TenantNotFoundException, SurverAnswersNotCompleteException {
         tenantSurveyService.submitSurveyAnswer(id, command);
         return ResponseDto.success();
     }
 
-    @PostMapping("/survey/{id}/reject/{tenantId}")
+    @PostMapping("/{id}/reject/{tenantId}")
     public ResponseDto<Void> rejectSurvey(@PathVariable Long id, @PathVariable Long tenantId)
             throws SurveyNotFoundException, TenantNotFoundException {
         tenantSurveyService.rejectSurvey(id, tenantId);

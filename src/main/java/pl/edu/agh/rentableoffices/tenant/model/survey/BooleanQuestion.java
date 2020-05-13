@@ -15,11 +15,11 @@ public class BooleanQuestion extends Question {
         return QuestionType.BOOLEAN;
     }
 
-    public static BooleanQuestion create(String code, String value) {
-        return new BooleanQuestion(code, value);
+    public static BooleanQuestion create(String code, String value, boolean required) {
+        return new BooleanQuestion(code, value, required);
     }
 
-    private BooleanQuestion(String code, String value) {
-        super(code, value);
+    private BooleanQuestion(String code, String value, boolean required) {
+        super(code, value, required);
     }
 }

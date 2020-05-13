@@ -19,5 +19,7 @@ public abstract class Question extends EntityBase {
 
     private String value;
 
+    private boolean required;
+
     public abstract QuestionType getType();
 }

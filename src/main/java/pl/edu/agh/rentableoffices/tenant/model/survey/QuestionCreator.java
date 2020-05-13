@@ -7,11 +7,11 @@ public class QuestionCreator {
     public static Question create(Survey survey, QuestionDto dto) {
         switch (dto.getType()) {
             case "STRING" :
-                return StringQuestion.create(dto.getCode(), dto.getValue());
+                return StringQuestion.create(dto.getCode(), dto.getValue(), dto.isRequired());
             case "BOOLEAN" :
-                return BooleanQuestion.create(dto.getCode(), dto.getValue());
+                return BooleanQuestion.create(dto.getCode(), dto.getValue(), dto.isRequired());
             case "RANGE" :
-                return RangeQuestion.create(dto.getCode(), dto.getValue(), ((RangeQuestionDto) dto).getMin(), ((RangeQuestionDto) dto).getMax());
+                return RangeQuestion.create(dto.getCode(), dto.getValue(), dto.isRequired(),((RangeQuestionDto) dto).getMin(), ((RangeQuestionDto) dto).getMax());
             default:
                 throw new IllegalStateException("Unknown question type");
         }
