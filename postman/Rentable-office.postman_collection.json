@@ -336,7 +336,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"name\": \"Ankieta 1\",\n\t\"description\": \"Opis ankiety\",\n\t\"questions\": [\n\t\t{\n\t\t\t\"code\": \"Q1\",\n\t\t\t\"value\": \"Pytanie 1\",\n\t\t\t\"type\": \"BOOLEAN\"\t\t\t\n\t\t}, {\n\t\t\t\"code\": \"Q2\",\n\t\t\t\"value\": \"Pytanie 2\",\n\t\t\t\"type\": \"RANGE\",\n\t\t\t\"min\": 1,\n\t\t\t\"max\": 10\n\t\t}, {\n\t\t\t\"code\": \"Q3\",\n\t\t\t\"value\": \"Pytanie 3\",\n\t\t\t\"type\": \"STRING\"\t\n\t\t}\n\t],\n\t\"tenantIds\": [\n\t\t1\n\t]\n}",
+							"raw": "{\n\t\"name\": \"Ankieta 1\",\n\t\"description\": \"Opis ankiety\",\n\t\"questions\": [\n\t\t{\n\t\t\t\"code\": \"Q1\",\n\t\t\t\"value\": \"Pytanie 1\",\n\t\t\t\"type\": \"BOOLEAN\"\t\t\t\n\t\t}, {\n\t\t\t\"code\": \"Q2\",\n\t\t\t\"value\": \"Pytanie 2\",\n\t\t\t\"type\": \"RANGE\",\n\t\t\t\"min\": 1,\n\t\t\t\"max\": 10\n\t\t}, {\n\t\t\t\"code\": \"Q3\",\n\t\t\t\"value\": \"Pytanie 3\",\n\t\t\t\"type\": \"STRING\"\t\n\t\t}, {\n\t\t\t\"code\": \"Q4\",\n\t\t\t\"value\": \"Pytanie 4\",\n\t\t\t\"type\": \"STRING\",\n\t\t\t\"required\": true\n\t\t}\n\t],\n\t\"tenantIds\": [\n\t\t1\n\t]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -373,6 +373,59 @@
 								"api",
 								"tenant",
 								"survey",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Submit Survey",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"tenantId\":1,\n\t\"answers\": [{\n\t\t\"code\": \"Q1\",\n\t\t\"value\" : true\n\t} , {\n\t\t\"code\": \"Q2\",\n\t\t\"value\" : 5\n\t}, {\n\t\t\"code\": \"Q3\",\n\t\t\"value\" : \"Hello world\"\n\t}, {\n\t\t\"code\": \"Q4\",\n\t\t\"value\": \"Lorem Ipsum\"\n\t}]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9080/api/tenant/survey/1",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"api",
+								"tenant",
+								"survey",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reject Survey",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:9080/api/tenant/survey/1/reject/1",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"api",
+								"tenant",
+								"survey",
+								"1",
+								"reject",
 								"1"
 							]
 						}
