@@ -7,14 +7,14 @@ import org.springframework.stereotype.Service;
 import pl.edu.agh.rentableoffices.common.queue.MessageBase;
 import pl.edu.agh.rentableoffices.messaging.dao.MessageRepository;
 import pl.edu.agh.rentableoffices.messaging.model.UserMessage;
-import pl.edu.agh.rentableoffices.messaging.service.NotificationService;
+import pl.edu.agh.rentableoffices.messaging.service.NotificationCreateService;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserMessageListener {
     private final MessageRepository messages;
-    private final NotificationService notifications;
+    private final NotificationCreateService notifications;
 
     @RabbitListener(queues = "${message.queue.name}")
     public void handle(MessageBase<UserMessageDto> message) {

@@ -3,6 +3,7 @@ package pl.edu.agh.rentableoffices.tenant.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import pl.edu.agh.rentableoffices.messaging.service.NotificationCreateService;
 import pl.edu.agh.rentableoffices.tenant.dao.TenantRepository;
 import pl.edu.agh.rentableoffices.tenant.dto.CreateTenantCommand;
 import pl.edu.agh.rentableoffices.tenant.exception.TenantNotFoundException;
@@ -17,20 +18,22 @@ import javax.transaction.Transactional;
 public class CreateTenantService {
     private final TenantRepository repository;
     private final TenantMessageService messageService;
+    private final NotificationCreateService notificationCreateService;
 
     //TODO - Informacja o próbie utworzenia nowego profilu trafia do najemcy, który weryfikuje poprawność wprowadzonych informacji
     public Long create(CreateTenantCommand command) {
         //TODO - Dorobić Builder
         Tenant tenant = Tenant.create(command.getFirstName(), command.getLastName(), command.isPrivate(),
                 command.getIdType(), command.getIdDocumentNumber(), command.getPreferredMeansOfCommunication(),
-                command.getPhoneNumber(), command.getEmail(), command.getLogin());
+                command.getPhoneNumber(), command.getEmail());
         tenant = repository.save(tenant);
-        log.info("Tenant {} created", tenant.getEmail());
+        log.info("Tenant {} created", tenant.getFullName());
         try{
             messageService.createMessageForTenant(tenant.getId(), "PLEASE_VERIFY");
         } catch (TenantNotFoundException e) {
             e.printStackTrace();
         }
+        notificationCreateService.createTenantCreatedNotification(tenant.getEmail());
         return tenant.getId();
     }
 }

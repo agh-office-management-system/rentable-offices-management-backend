@@ -8,6 +8,7 @@ import pl.edu.agh.rentableoffices.common.Address;
 import pl.edu.agh.rentableoffices.common.AddressDto;
 import pl.edu.agh.rentableoffices.common.EntityBase;
 import pl.edu.agh.rentableoffices.office.exception.MaxOfficeCapacityReachedException;
+import pl.edu.agh.rentableoffices.office.exception.TenantAlreadyAssignedException;
 import pl.edu.agh.rentableoffices.office.exception.TenantNotAssignedException;
 import pl.edu.agh.rentableoffices.tenant.model.Tenant;
 
@@ -37,7 +38,7 @@ public class Office extends EntityBase {
     @Embedded
     private Address address;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Tenant> tenants;
 
     @Positive
@@ -70,6 +71,9 @@ public class Office extends EntityBase {
     }
 
     public void assignTenant(Tenant tenant) throws MaxOfficeCapacityReachedException {
+        if(tenants.stream().anyMatch(t -> t.getId() == tenant.getId())) {
+            throw new TenantAlreadyAssignedException(tenant.getId(), getId());
+        }
         if(maxTenants != null && tenants.size() == maxTenants) {
             throw new MaxOfficeCapacityReachedException(this.getId());
         }

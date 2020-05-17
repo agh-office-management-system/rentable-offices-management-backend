@@ -6,6 +6,7 @@ import pl.edu.agh.rentableoffices.tenant.dto.survey.QuestionDto;
 import pl.edu.agh.rentableoffices.tenant.model.Tenant;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -26,6 +27,7 @@ public class Survey extends EntityBase {
     private Set<Question> questions = new HashSet<>();
 
     @OneToMany
+    @NotEmpty
     private Set<Tenant> target = new HashSet<>();
 
     public static Survey create(String name, String description, Set<QuestionDto> questions, List<Tenant> tenants) {

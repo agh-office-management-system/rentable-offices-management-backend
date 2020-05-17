@@ -3,8 +3,7 @@ package pl.edu.agh.rentableoffices.office.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import pl.edu.agh.rentableoffices.messaging.model.NotificationType;
-import pl.edu.agh.rentableoffices.messaging.service.NotificationService;
+import pl.edu.agh.rentableoffices.messaging.service.NotificationCreateService;
 import pl.edu.agh.rentableoffices.office.dao.OfficeRepository;
 import pl.edu.agh.rentableoffices.office.dto.UpdateOfficeCommand;
 import pl.edu.agh.rentableoffices.office.exception.MaxOfficeCapacityReachedException;
@@ -16,6 +15,7 @@ import pl.edu.agh.rentableoffices.tenant.model.Tenant;
 
 import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -24,7 +24,7 @@ import javax.validation.constraints.NotNull;
 public class OfficeUpdateService {
     private final OfficeRepository repository;
     private final TenantRepository tenantRepository;
-    private final NotificationService notificationService;
+    private final NotificationCreateService notificationCreateService;
 
     public void update(@NotNull Long id, @NotNull UpdateOfficeCommand command) throws OfficeNotFoundException {
         Office office = repository.get(id);
@@ -32,7 +32,7 @@ public class OfficeUpdateService {
         log.info("Office {} updated. Room count = {}, area = {}, max tenants = {},address = {}",
                 command.getNewRoomCount(), command.getNewArea(), command.getNewMaxTenants(), command.getNewAddress());
         if(!office.getTenants().isEmpty()) {
-            this.notificationService.notifyTenants(office.getTenants(), NotificationType.OFFICE_UPDATED, new Object[]{id});
+            notificationCreateService.createOfficeUpdatedNotification(office.getTenants().stream().map(Tenant::getEmail).collect(Collectors.toList()), id);
         }
     }
 
@@ -42,7 +42,7 @@ public class OfficeUpdateService {
         Tenant tenant = tenantRepository.get(tenantId);
         office.assignTenant(tenant);
         log.info("Tenant {} assigned to the office {}", tenant.getEmail(), office.getAddress());
-        this.notificationService.notifyTenant(tenant, NotificationType.TENANT_ASSIGNED, new Object[]{id});
+        notificationCreateService.createTenantAssignedNotification(tenant.getEmail(), id);
     }
 
     public void removeTenant(@NotNull Long id, @NotNull Long tenantId) throws OfficeNotFoundException, TenantNotFoundException {
@@ -50,6 +50,6 @@ public class OfficeUpdateService {
         Tenant tenant = tenantRepository.get(tenantId);
         office.removeTenant(tenant);
         log.info("Tenant {} removed from the office {}", tenant.getEmail(), office.getAddress());
-        this.notificationService.notifyTenant(tenant, NotificationType.TENANT_REMOVED, new Object[]{id});
+        notificationCreateService.createTenantRemovedNotification(tenant.getEmail(), id);
     }
 }

@@ -10,7 +10,6 @@ import pl.edu.agh.rentableoffices.messaging.exception.MessageNotFound;
 import pl.edu.agh.rentableoffices.messaging.exception.ReceiverNotFound;
 import pl.edu.agh.rentableoffices.messaging.mapper.MessageMapper;
 import pl.edu.agh.rentableoffices.messaging.model.UserMessage;
-import pl.edu.agh.rentableoffices.messaging.model.NotificationType;
 import pl.edu.agh.rentableoffices.messaging.queue.message.UserMessageDto;
 import pl.edu.agh.rentableoffices.messaging.queue.message.UserMessageSender;
 import pl.edu.agh.rentableoffices.user.UserService;
@@ -26,7 +25,7 @@ import java.util.List;
 public class MessagingService {
     private final MessageRepository repository;
     private final MessageMapper mapper;
-    private final NotificationService notificationService;
+    private final NotificationCreateService notificationCreateService;
     private final UserService userService;
     private final UserMessageSender sender;
 
@@ -48,7 +47,8 @@ public class MessagingService {
     public void markAsRead(@NotNull Long id) throws MessageNotFound {
         UserMessage userMessage = repository.get(id);
         userMessage.markAsRead();
-        notificationService.createMessageReadNotification(userMessage.getTo(), id);
+        log.info("Message {} marked as read.", id);
+        notificationCreateService.createMessageReadNotification(userMessage.getTo(), id);
     }
 
     public MessageDto getMessage(@NotNull Long id) throws MessageNotFound {

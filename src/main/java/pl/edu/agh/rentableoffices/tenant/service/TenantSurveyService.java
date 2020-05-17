@@ -4,8 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pl.edu.agh.rentableoffices.common.BusinessRuntimeException;
-import pl.edu.agh.rentableoffices.messaging.model.NotificationType;
-import pl.edu.agh.rentableoffices.messaging.service.NotificationService;
+import pl.edu.agh.rentableoffices.messaging.service.NotificationCreateService;
 import pl.edu.agh.rentableoffices.tenant.dao.SurveyAnswerRepository;
 import pl.edu.agh.rentableoffices.tenant.dao.SurveyRepository;
 import pl.edu.agh.rentableoffices.tenant.dao.TenantRepository;
@@ -23,6 +22,7 @@ import pl.edu.agh.rentableoffices.tenant.model.survey.SurveyAnswer;
 import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -33,15 +33,16 @@ public class TenantSurveyService {
     private final TenantRepository tenantRepository;
     private final SurveyAnswerRepository surveyAnswerRepository;
     private final SurveyMapper mapper;
-    private final NotificationService notificationService;
+    private final NotificationCreateService notificationCreateService;
 
     public Long createSurvey(@NotNull CreateSurveyCommand command) {
         List<Tenant> tenants = tenantRepository.findAllById(command.getTenantIds());
         Survey survey = Survey.create(command.getName(), command.getDescription(),
                 command.getQuestions(), tenants);
         survey = repository.save(survey);
-        notificationService.notifyTenants(tenants, NotificationType.SURVEY_CREATED, new Object[]{survey.getId()});
         log.info("Survey \"{}\" created.",command.getName());
+        notificationCreateService.createSurveyCreatedNotification(tenants.stream().map(Tenant::getEmail).collect(Collectors.toList()), survey.getId());
+
         return survey.getId();
     }
 
@@ -66,7 +67,7 @@ public class TenantSurveyService {
         SurveyAnswer surveyAnswer = SurveyAnswer.create(tenant, survey, command.getAnswers());
         surveyAnswer = surveyAnswerRepository.save(surveyAnswer);
         log.info("Survey \"{}\" answered by {}", survey.getName(), tenant.getFullName());
-        notificationService.notifyAdministration(NotificationType.SURVEY_ANSWER_SUBMITTED, new Object[]{surveyAnswer.getId()});
+        notificationCreateService.createSurveyAnswerSubmittedNotification(tenant.getEmail(), surveyAnswer.getId());
     }
 
     public void rejectSurvey(@NotNull Long id, @NotNull Long tenantId)
@@ -84,7 +85,7 @@ public class TenantSurveyService {
         SurveyAnswer surveyAnswer = SurveyAnswer.reject(tenant, survey);
         surveyAnswerRepository.save(surveyAnswer);
         log.info("Survey \"{}\" rejected by {}", survey.getName(), tenant.getFullName());
-        notificationService.notifyAdministration(NotificationType.SURVEY_ANSWER_REJECTED, new Object[]{surveyAnswer.getId()});
+        notificationCreateService.createSurveyAnswerRejectedNotification(tenant.getEmail());
     }
 
 }

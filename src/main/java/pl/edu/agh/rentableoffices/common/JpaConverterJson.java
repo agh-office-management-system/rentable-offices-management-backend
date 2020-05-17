@@ -19,15 +19,16 @@ public class JpaConverterJson implements AttributeConverter<Object, String> {
         try {
             return objectMapper.writeValueAsString(meta);
         } catch (JsonProcessingException ex) {
+            log.error("Unexpected convertion error for object {}", meta);
+            log.error("Exception details: ", ex);
             return null;
-            // or throw an error
         }
     }
 
     @Override
     public Object convertToEntityAttribute(String dbData) {
         try {
-            return objectMapper.readValue(dbData, Object.class);
+            return objectMapper.readValue(dbData, Object[].class);
         } catch (IOException ex) {
             log.error("Unexpected IOEx decoding json from database {}", dbData);
             return null;

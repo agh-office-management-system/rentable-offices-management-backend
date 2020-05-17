@@ -27,8 +27,5 @@ public class TenantDto {
 
     private TenantStatus status;
     private String rejectedReason;
-    //TODO remove
-    private String login;
-
     private Long officeId;
 }

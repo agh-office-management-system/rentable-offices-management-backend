@@ -3,6 +3,7 @@ package pl.edu.agh.rentableoffices.common;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -11,8 +12,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.nio.file.AccessDeniedException;
 import java.util.Locale;
 
-//TODO locale
-//TODO i18n + Spisanie kodów błedów
 @RestControllerAdvice
 @RequiredArgsConstructor
 @Slf4j
@@ -41,14 +40,14 @@ public class WebControllerAdvice {
     @ExceptionHandler(BusinessException.class)
     @ResponseStatus(code = HttpStatus.OK)
     public ResponseDto<Void> handleBusinessException(BusinessException exception) {
-        String message = messageSource.getMessage(exception.getCode(), exception.getParams(), Locale.getDefault());
+        String message = messageSource.getMessage(exception.getCode(), exception.getParams(), LocaleContextHolder.getLocale());
         return ResponseDto.error(exception.getCode(), message);
     }
 
     @ExceptionHandler(BusinessRuntimeException.class)
     @ResponseStatus(code = HttpStatus.OK)
     public ResponseDto<Void> handleBusinessException(BusinessRuntimeException exception) {
-        String message = messageSource.getMessage(exception.getCode(), exception.getParams(), Locale.getDefault());
+        String message = messageSource.getMessage(exception.getCode(), exception.getParams(), LocaleContextHolder.getLocale());
         return ResponseDto.error(exception.getCode(), message);
     }
 
@@ -57,7 +56,7 @@ public class WebControllerAdvice {
     @ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseDto<Void> illegalStateException(Exception exception) {
         log.error("Unexpected exception occured", exception);
-        String message = messageSource.getMessage("UNEXPECTED_EXCEPTION", new Object[]{}, Locale.getDefault());
+        String message = messageSource.getMessage("UNEXPECTED_EXCEPTION", new Object[]{}, LocaleContextHolder.getLocale());
         return ResponseDto.error("UNEXPECTED_EXCEPTION", message);
     }
 

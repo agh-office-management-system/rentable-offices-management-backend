@@ -8,6 +8,8 @@ import pl.edu.agh.rentableoffices.common.queue.MessageBase;
 import pl.edu.agh.rentableoffices.messaging.dao.NotificationRepository;
 import pl.edu.agh.rentableoffices.messaging.model.Notification;
 
+import java.util.stream.Collectors;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -16,11 +18,15 @@ public class NotificationListener {
 
     @RabbitListener(queues = "${notification.queue.name}")
     public void handle(MessageBase<NotificationMessageDto> message) {
-        log.info("Received notification of type {} from {} to {}", message.getContent().getNotificationType(), message.getContent().getFrom(), message.getContent().getTo());
+        log.info("Received notification of type {} from {} to {}", message.getContent().getNotificationType(), message.getContent().getFrom(), message.getContent().getReceivers());
 
-        NotificationMessageDto dto = message.getContent();
+        var dto = message.getContent();
+        var createdNotifications = dto.getReceivers()
+                .stream()
+                .map(r -> Notification.create(dto.getFrom(), r, dto.getNotificationType(), dto.getPayload()))
+                .collect(Collectors.toList());
 
-        Notification notification = Notification.create(dto.getFrom(), dto.getTo(), dto.getNotificationType(), dto.getPayload());
-        notifications.save(notification);
+        notifications.saveAll(createdNotifications);
+
     }
 }

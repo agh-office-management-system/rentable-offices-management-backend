@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "Tenant")
@@ -26,21 +27,19 @@ public class Tenant extends EntityBase {
 
     private PreferredMeansOfCommunication preferredMeansOfCommunication;
     private String phoneNumber;
+    @NotEmpty
     private String email;
 
     private TenantStatus status;
     private String rejectedReason;
-    //TODO remove
-    private String login;
 
     @ManyToOne
     private Office office;
-
     public static Tenant create(
             String firstName, String lastName, boolean isPrivate, IdType idType, String idDocumentNumber,
-            PreferredMeansOfCommunication preferredMeansOfCommunication, String phoneNumber, String email, String login) {
+            PreferredMeansOfCommunication preferredMeansOfCommunication, String phoneNumber, String email) {
         return new Tenant(firstName, lastName, isPrivate, idDocumentNumber, idType, preferredMeansOfCommunication,
-                phoneNumber, email, TenantStatus.CREATED, null, login, null);
+                phoneNumber, email, TenantStatus.CREATED, null,  null);
     }
 
     public void verify() {
@@ -59,6 +58,6 @@ public class Tenant extends EntityBase {
     }
 
     public String getFullName() {
-        return firstName + " " + lastName;
+        return firstName + " " + lastName + " (" + email +")";
     }
 }

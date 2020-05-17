@@ -3,8 +3,7 @@ package pl.edu.agh.rentableoffices.tenant.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import pl.edu.agh.rentableoffices.messaging.model.NotificationType;
-import pl.edu.agh.rentableoffices.messaging.service.NotificationService;
+import pl.edu.agh.rentableoffices.messaging.service.NotificationCreateService;
 import pl.edu.agh.rentableoffices.tenant.dao.TenantRepository;
 import pl.edu.agh.rentableoffices.tenant.dto.UpdateTenantCommand;
 import pl.edu.agh.rentableoffices.tenant.dto.VerifyTenantCommand;
@@ -20,7 +19,7 @@ import javax.validation.constraints.NotNull;
 @RequiredArgsConstructor
 public class TenantUpdateService {
     private final TenantRepository repository;
-    private final NotificationService notificationService;
+    private final NotificationCreateService notificationCreateService;
 
     public void update(@NotNull Long id, UpdateTenantCommand command) throws TenantNotFoundException {
         //TODO
@@ -30,12 +29,12 @@ public class TenantUpdateService {
         Tenant tenant = repository.get(id);
         if(command.isAccepted()) {
             tenant.verify();
-            log.info("Tenant {} verified", tenant.getEmail());
-            notificationService.notifyAdministration(NotificationType.TENANT_VERIFIED, new Object[]{id});
+            log.info("Tenant {} verified", tenant.getFullName());
+            notificationCreateService.createTenantVerifiedNotification(tenant.getEmail());
         } else {
             tenant.reject(command.getRejectionReason());
-            log.info("Tenant {} rejected", tenant.getEmail());
-            notificationService.notifyAdministration(NotificationType.TENANT_REJECTED, new Object[]{id});
+            log.info("Tenant {} rejected", tenant.getFullName());
+            notificationCreateService.createTenantRejectedNotification(tenant.getEmail(), command.getRejectionReason());
         }
     }
 }

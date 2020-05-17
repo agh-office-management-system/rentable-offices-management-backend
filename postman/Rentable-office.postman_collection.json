@@ -139,7 +139,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"email\": \"tanant@tenant.pl\",\r\n  \"firstName\": \"John\",\r\n  \"idDocumentNumber\": \"12345\",\r\n  \"idType\": \"PESEL\",\r\n  \"lastName\": \"Doe\",\r\n  \"login\": \"JDoe@ourapp.pl\",\r\n  \"phoneNumber\": \"123456789\",\r\n  \"preferredMeansOfCommunication\": \"SMS\",\r\n  \"private\": true\r\n}",
+							"raw": "{\r\n  \"email\": \"JKowalski@gmail.com\",\r\n  \"firstName\": \"Jan\",\r\n  \"idDocumentNumber\": \"12345\",\r\n  \"idType\": \"PESEL\",\r\n  \"lastName\": \"Kowalski\",\r\n  \"phoneNumber\": \"123456789\",\r\n  \"preferredMeansOfCommunication\": \"SMS\",\r\n  \"private\": true\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -434,7 +434,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"from\": \"ADMIN\",\n\t\"to\": \"JKowalski\",\n\t\"content\": \"Hello world message\"\n}",
+							"raw": "{\n\t\"from\": \"ADMIN\",\n\t\"to\": \"JKowalski@gmail.com\",\n\t\"content\": \"Hello world message\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -513,6 +513,32 @@
 								"message",
 								"1",
 								"markAsRead"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Notification",
+			"item": [
+				{
+					"name": "Get notifications",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9080/api/notification/JKowalski",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"api",
+								"notification",
+								"JKowalski"
 							]
 						}
 					},

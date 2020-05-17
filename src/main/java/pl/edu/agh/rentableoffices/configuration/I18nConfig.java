@@ -32,7 +32,7 @@ public class I18nConfig extends AcceptHeaderLocaleResolver implements WebMvcConf
     @Bean
     public ResourceBundleMessageSource messageSource() {
         ResourceBundleMessageSource rs = new ResourceBundleMessageSource();
-        rs.setBasename("messages");
+        rs.setBasenames("messages", "notifications");
         rs.setDefaultEncoding("UTF-8");
         rs.setUseCodeAsDefaultMessage(true);
         return rs;

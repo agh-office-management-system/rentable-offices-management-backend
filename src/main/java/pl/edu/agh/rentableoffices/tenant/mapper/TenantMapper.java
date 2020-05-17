@@ -16,7 +16,6 @@ public class TenantMapper implements AbstractMapper<Tenant, TenantDto> {
                 .email(entity.getEmail())
                 .idDocumentNumber(entity.getIdDocumentNumber())
                 .idType(entity.getIdType())
-                .login(entity.getLogin())
                 .officeId(entity.getOffice() != null? entity.getOffice().getId() : null)
                 .phoneNumber(entity.getPhoneNumber())
                 .preferredMeansOfCommunication(entity.getPreferredMeansOfCommunication())

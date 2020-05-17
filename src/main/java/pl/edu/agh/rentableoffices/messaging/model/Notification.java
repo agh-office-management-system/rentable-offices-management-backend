@@ -1,16 +1,12 @@
 package pl.edu.agh.rentableoffices.messaging.model;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
 import pl.edu.agh.rentableoffices.common.EntityBase;
 import pl.edu.agh.rentableoffices.common.JpaConverterJson;
 
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "notification")
@@ -25,16 +21,23 @@ public class Notification extends EntityBase {
     private String to;
 
     @Column(name = "notification_type")
+    @Enumerated(value = EnumType.STRING)
     private NotificationType type;
 
+    @Column(name = "params")
     @Convert(converter = JpaConverterJson.class)
+    @Setter
     private Object[] params;
 
+    @Column(name = "created_at")
+    @CreatedDate
+    private LocalDateTime createdAt;
+
     public static Notification create(String from, String to, NotificationType type) {
-        return new Notification(from, to, type, null);
+        return new Notification(from, to, type, null, LocalDateTime.now());
     }
 
     public static Notification create(String from, String to, NotificationType type, Object... params) {
-        return new Notification(from, to, type, params);
+        return new Notification(from, to, type, params, LocalDateTime.now());
     }
 }
