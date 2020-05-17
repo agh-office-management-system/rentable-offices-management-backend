@@ -13,5 +13,4 @@ public class NotificationDto {
     private String name;
     private String content;
     private LocalDateTime createdAt;
-    //TODO url for details
 }

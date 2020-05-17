@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import pl.edu.agh.rentableoffices.common.Address;
 import pl.edu.agh.rentableoffices.common.AddressDto;
+import pl.edu.agh.rentableoffices.common.BusinessRuntimeException;
 import pl.edu.agh.rentableoffices.common.EntityBase;
 import pl.edu.agh.rentableoffices.office.exception.MaxOfficeCapacityReachedException;
 import pl.edu.agh.rentableoffices.office.exception.TenantAlreadyAssignedException;
@@ -53,7 +54,6 @@ public class Office extends EntityBase {
     }
 
     public void update(Integer newRoomCount, Double newArea, Integer maxTenants, AddressDto newAddress) {
-        //TODO validation other than != null
         if(newRoomCount != null) {
             this.roomCount = newRoomCount;
         }
@@ -61,6 +61,9 @@ public class Office extends EntityBase {
             this.area = newArea;
         }
         if(maxTenants != null) {
+            if(getTenantCount() > maxTenants) {
+                throw new BusinessRuntimeException("MAX_TENANTS_LESS_THAN_ACTIVE_TENANTS");
+            }
             this.maxTenants = maxTenants;
         }
         if(newAddress != null ) {

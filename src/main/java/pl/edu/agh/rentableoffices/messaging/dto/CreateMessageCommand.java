@@ -1,6 +1,8 @@
 package pl.edu.agh.rentableoffices.messaging.dto;
 
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
@@ -10,12 +12,16 @@ import javax.validation.constraints.NotEmpty;
 @AllArgsConstructor
 @Getter
 @Setter
+@ApiModel("Polecenie utworzenie wiadomości")
 public class CreateMessageCommand {
     //TODO remove
+    @ApiModelProperty("Od kogo (email)")
     @NotEmpty
     private String from;
+    @ApiModelProperty("Do kogo (email)")
     @NotEmpty
     private String to;
+    @ApiModelProperty("Treść")
     @NotEmpty
     private String content;
 }

@@ -1,6 +1,7 @@
 package pl.edu.agh.rentableoffices.office.web;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.agh.rentableoffices.office.dto.*;
 import pl.edu.agh.rentableoffices.office.exception.AddressAlreadyExistsException;
@@ -28,13 +29,13 @@ public class OfficeController {
     }
 
     @PostMapping
-    //TODO - Pracownik administracji
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATION_EMPLOYEE')")
     public ResponseDto<Long> create(@RequestBody CreateOfficeCommand request) throws AddressAlreadyExistsException {
         return ResponseDto.success(officeCreateService.create(request));
     }
 
     @PutMapping("/{id}")
-    //TODO - Pracownik administracji
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATION_EMPLOYEE')")
     public ResponseDto<Void> update(@PathVariable Long id, @RequestBody UpdateOfficeCommand request)
             throws OfficeNotFoundException {
         officeUpdateService.update(id, request);
@@ -42,7 +43,7 @@ public class OfficeController {
     }
 
     @PutMapping("/{id}/tenant/{tenantId}")
-    //TODO - Pracownik administracji
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATION_EMPLOYEE')")
     public ResponseDto<Void> assignTenant(@PathVariable Long id, @PathVariable Long tenantId)
             throws TenantNotFoundException, OfficeNotFoundException, MaxOfficeCapacityReachedException {
         officeUpdateService.assignTenant(id, tenantId);
@@ -50,7 +51,7 @@ public class OfficeController {
     }
 
     @DeleteMapping("/{id}/tenant/{tenantId}")
-    //TODO - Pracownik administracji
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATION_EMPLOYEE')")
     public ResponseDto<Void> removeTenant(@PathVariable Long id, @PathVariable Long tenantId)
             throws OfficeNotFoundException, TenantNotFoundException {
         officeUpdateService.removeTenant(id, tenantId);
@@ -58,13 +59,13 @@ public class OfficeController {
     }
 
     @GetMapping("/report")
-    //TODO Pracownik administracji
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATION_EMPLOYEE')")
     public ResponseDto<List<OfficeReportDto>> generateOfficeReport() {
         return ResponseDto.success(officeReportService.createOfficeReport());
     }
 
     @GetMapping("/report/{id}")
-    //TODO Pracownik administracji
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATION_EMPLOYEE')")
     public ResponseDto<List<OfficeHistoryDto>> generateOfficeHistoryReport(@PathVariable Long id) throws OfficeNotFoundException {
         return ResponseDto.success(this.officeHistoryService.getOfficeHistory(id));
     }
