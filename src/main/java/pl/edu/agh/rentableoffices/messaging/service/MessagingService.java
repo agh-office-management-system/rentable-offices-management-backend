@@ -11,6 +11,7 @@ import pl.edu.agh.rentableoffices.messaging.exception.ReceiverNotFound;
 import pl.edu.agh.rentableoffices.messaging.mapper.MessageMapper;
 import pl.edu.agh.rentableoffices.messaging.model.UserMessage;
 import pl.edu.agh.rentableoffices.messaging.model.NotificationType;
+import pl.edu.agh.rentableoffices.messaging.queue.UserMessageDto;
 import pl.edu.agh.rentableoffices.messaging.queue.UserMessageSender;
 import pl.edu.agh.rentableoffices.user.UserService;
 
@@ -32,17 +33,21 @@ public class MessagingService {
         if(!userService.userExists(command.getTo())) {
             throw new ReceiverNotFound(command.getTo());
         } else {
-            UserMessage userMessage = UserMessage.create(command.getFrom(), command.getTo(), command.getContent());
+            UserMessageDto userMessage = UserMessageDto.builder()
+                    .content(command.getContent())
+                    .from(command.getFrom())
+                    .to(command.getTo())
+                    .build();
+
+            log.info("Sending message to user \"{}\" from \"{}\"", userMessage.getTo(), userMessage.getFrom());
             sender.send(userMessage);
-            Long id = repository.save(userMessage).getId();
-            notificationService.sendNotification(command.getFrom(), command.getTo(), NotificationType.MESSAGE_SENT, new Object[]{command.getFrom(), id});
         }
     }
 
     public void markAsRead(@NotNull Long id) throws MessageNotFound {
-        UserMessage userMessage = repository.get(id);
+       /* UserMessage userMessage = repository.get(id);
         userMessage.markAsRead();
-        this.notificationService.sendNotification(userMessage.getTo(), userMessage.getFrom(), NotificationType.MESSAGE_READ, new Object[]{id});
+        this.notificationService.sendNotification(userMessage.getTo(), userMessage.getFrom(), NotificationType.MESSAGE_READ, new Object[]{id});*/
     }
 
     public MessageDto getMessage(@NotNull Long id) throws MessageNotFound {
