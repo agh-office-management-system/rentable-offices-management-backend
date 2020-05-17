@@ -1,12 +1,11 @@
 package pl.edu.agh.rentableoffices.office.model;
 
 import lombok.*;
+import org.springframework.data.annotation.CreatedBy;
 import pl.edu.agh.rentableoffices.common.EntityBase;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
@@ -17,14 +16,20 @@ import java.time.LocalDateTime;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class OfficeHistory extends EntityBase {
 
+    @NotNull
+    @Column(name = "type")
+    @Enumerated(value = EnumType.STRING)
     private OfficeHistoryType type;
 
+    @Column(name="additional_info")
     private String additionalInfo;
 
-    @Column
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
 
     //TODO createdBy uzupełnić
+    @Column(name = "created_by")
+    @CreatedBy
     private String createdBy;
 
     public static OfficeHistory created() {

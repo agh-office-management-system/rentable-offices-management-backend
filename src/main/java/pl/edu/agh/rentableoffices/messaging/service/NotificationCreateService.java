@@ -2,16 +2,10 @@ package pl.edu.agh.rentableoffices.messaging.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
-import pl.edu.agh.rentableoffices.messaging.dao.NotificationRepository;
-import pl.edu.agh.rentableoffices.messaging.dto.NotificationDto;
-import pl.edu.agh.rentableoffices.messaging.mapper.NotificationMapper;
-import pl.edu.agh.rentableoffices.messaging.model.Notification;
 import pl.edu.agh.rentableoffices.messaging.model.NotificationType;
 import pl.edu.agh.rentableoffices.messaging.queue.notification.NotificationMessageDto;
 import pl.edu.agh.rentableoffices.messaging.queue.notification.NotificationSender;
-import pl.edu.agh.rentableoffices.tenant.model.Tenant;
 
 import javax.transaction.Transactional;
 import java.util.List;

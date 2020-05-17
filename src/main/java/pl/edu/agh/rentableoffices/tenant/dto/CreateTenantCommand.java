@@ -12,6 +12,8 @@ import pl.edu.agh.rentableoffices.tenant.model.TenantStatus;
 public class CreateTenantCommand {
     private String firstName;
     private String lastName;
+    private String companyName;
+    private Integer numberOfEmployees;
     private boolean isPrivate;
     private String idDocumentNumber;
     private IdType idType;

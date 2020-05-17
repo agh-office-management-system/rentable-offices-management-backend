@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pl.edu.agh.rentableoffices.messaging.service.NotificationCreateService;
+import pl.edu.agh.rentableoffices.office.exception.MaxOfficeCapacityReachedException;
 import pl.edu.agh.rentableoffices.tenant.dao.TenantRepository;
 import pl.edu.agh.rentableoffices.tenant.dto.UpdateTenantCommand;
 import pl.edu.agh.rentableoffices.tenant.dto.VerifyTenantCommand;
@@ -21,13 +22,16 @@ public class TenantUpdateService {
     private final TenantRepository repository;
     private final NotificationCreateService notificationCreateService;
 
-    public void update(@NotNull Long id, UpdateTenantCommand command) throws TenantNotFoundException {
-        //TODO
+    public void update(@NotNull Long id, UpdateTenantCommand command) throws TenantNotFoundException, MaxOfficeCapacityReachedException {
+        Tenant tenant = repository.get(id);
+        tenant.update(command.getFirstName(), command.getLastName(), command.getCompanyName(),
+                command.getNumberOfEmployees(), command.getIdType(), command.getIdDocumentNumber(),
+                command.getPreferredMeansOfCommunication(), command.getPhoneNumber(), command.getEmail());
     }
 
     public void verify(@NotNull Long id, VerifyTenantCommand command) throws TenantNotFoundException {
         Tenant tenant = repository.get(id);
-        if(command.isAccepted()) {
+        if (command.isAccepted()) {
             tenant.verify();
             log.info("Tenant {} verified", tenant.getFullName());
             notificationCreateService.createTenantVerifiedNotification(tenant.getEmail());
@@ -37,4 +41,5 @@ public class TenantUpdateService {
             notificationCreateService.createTenantRejectedNotification(tenant.getEmail(), command.getRejectionReason());
         }
     }
+
 }

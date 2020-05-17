@@ -91,8 +91,19 @@ public class Office extends EntityBase {
         this.history.add(history);
     }
 
+    public Integer getTenantCount() {
+        if(tenants == null) {
+            return 0;
+        }
+        return tenants.stream()
+                .mapToInt(t -> t.isPrivate() ? 1 : t.getNumberOfEmployees())
+                .sum();
+    }
+
     public void completeRepair() {
         OfficeHistory history = OfficeHistory.repairCompleted();
         this.history.add(history);
     }
+
+
 }

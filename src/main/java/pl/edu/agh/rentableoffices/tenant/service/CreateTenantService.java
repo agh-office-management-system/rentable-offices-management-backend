@@ -23,9 +23,16 @@ public class CreateTenantService {
     //TODO - Informacja o próbie utworzenia nowego profilu trafia do najemcy, który weryfikuje poprawność wprowadzonych informacji
     public Long create(CreateTenantCommand command) {
         //TODO - Dorobić Builder
-        Tenant tenant = Tenant.create(command.getFirstName(), command.getLastName(), command.isPrivate(),
-                command.getIdType(), command.getIdDocumentNumber(), command.getPreferredMeansOfCommunication(),
-                command.getPhoneNumber(), command.getEmail());
+        Tenant tenant;
+        if(command.isPrivate()) {
+            tenant = Tenant.createPrivate(command.getFirstName(), command.getLastName(),
+                    command.getIdType(), command.getIdDocumentNumber(), command.getPreferredMeansOfCommunication(),
+                    command.getPhoneNumber(), command.getEmail());
+        } else {
+            tenant = Tenant.createLegal(command.getCompanyName(), command.getNumberOfEmployees(),
+                    command.getIdType(), command.getIdDocumentNumber(), command.getPreferredMeansOfCommunication(),
+                    command.getPhoneNumber(), command.getEmail());
+        }
         tenant = repository.save(tenant);
         log.info("Tenant {} created", tenant.getFullName());
         try{

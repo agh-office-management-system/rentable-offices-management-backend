@@ -3,6 +3,7 @@ package pl.edu.agh.rentableoffices.tenant.web;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.agh.rentableoffices.common.ResponseDto;
+import pl.edu.agh.rentableoffices.office.exception.MaxOfficeCapacityReachedException;
 import pl.edu.agh.rentableoffices.tenant.dto.*;
 import pl.edu.agh.rentableoffices.tenant.exception.TenantNotFoundException;
 import pl.edu.agh.rentableoffices.tenant.service.*;
@@ -35,7 +36,7 @@ public class TenantController {
     }
 
     @PutMapping("/{id}")
-    public ResponseDto<Void> update(@PathVariable Long id, @RequestBody UpdateTenantCommand command) throws TenantNotFoundException {
+    public ResponseDto<Void> update(@PathVariable Long id, @RequestBody UpdateTenantCommand command) throws TenantNotFoundException, MaxOfficeCapacityReachedException {
         tenantUpdateService.update(id, command);
         return ResponseDto.success();
     }
