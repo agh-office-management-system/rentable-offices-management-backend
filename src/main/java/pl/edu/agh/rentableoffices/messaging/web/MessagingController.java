@@ -10,6 +10,7 @@ import pl.edu.agh.rentableoffices.messaging.exception.ReceiverNotFound;
 import pl.edu.agh.rentableoffices.messaging.service.MessagingService;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/message")
@@ -23,6 +24,12 @@ public class MessagingController {
     public ResponseDto<Void> sendMessage(@RequestBody @Valid CreateMessageCommand command) throws ReceiverNotFound {
         messagingService.sendMessage(command);
         return ResponseDto.success();
+    }
+
+    @GetMapping("/user/{user}")
+    //TODO -> User
+    public ResponseDto<List<MessageDto>> getUserMessages(@PathVariable String user) throws MessageNotFound {
+        return ResponseDto.success(messagingService.getUserMessages(user));
     }
 
     @GetMapping("/{id}")

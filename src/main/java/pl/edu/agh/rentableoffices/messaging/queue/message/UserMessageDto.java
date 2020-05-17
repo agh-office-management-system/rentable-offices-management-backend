@@ -1,4 +1,4 @@
-package pl.edu.agh.rentableoffices.messaging.queue;
+package pl.edu.agh.rentableoffices.messaging.queue.message;
 
 import lombok.*;
 

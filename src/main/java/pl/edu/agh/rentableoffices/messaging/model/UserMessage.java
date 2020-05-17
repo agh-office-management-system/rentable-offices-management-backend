@@ -38,6 +38,10 @@ public class UserMessage extends EntityBase {
         return new UserMessage(from, to, content, LocalDateTime.now(),false);
     }
 
+    public static UserMessage create(String from, String to, String content, LocalDateTime createdAt) {
+        return new UserMessage(from, to, content, createdAt,false);
+    }
+
     public void markAsRead() {
         this.read = true;
     }

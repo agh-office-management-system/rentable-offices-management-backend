@@ -11,12 +11,13 @@ import pl.edu.agh.rentableoffices.messaging.exception.ReceiverNotFound;
 import pl.edu.agh.rentableoffices.messaging.mapper.MessageMapper;
 import pl.edu.agh.rentableoffices.messaging.model.UserMessage;
 import pl.edu.agh.rentableoffices.messaging.model.NotificationType;
-import pl.edu.agh.rentableoffices.messaging.queue.UserMessageDto;
-import pl.edu.agh.rentableoffices.messaging.queue.UserMessageSender;
+import pl.edu.agh.rentableoffices.messaging.queue.message.UserMessageDto;
+import pl.edu.agh.rentableoffices.messaging.queue.message.UserMessageSender;
 import pl.edu.agh.rentableoffices.user.UserService;
 
 import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -45,12 +46,17 @@ public class MessagingService {
     }
 
     public void markAsRead(@NotNull Long id) throws MessageNotFound {
-       /* UserMessage userMessage = repository.get(id);
+        UserMessage userMessage = repository.get(id);
         userMessage.markAsRead();
-        this.notificationService.sendNotification(userMessage.getTo(), userMessage.getFrom(), NotificationType.MESSAGE_READ, new Object[]{id});*/
+        notificationService.createMessageReadNotification(userMessage.getTo(), id);
     }
 
     public MessageDto getMessage(@NotNull Long id) throws MessageNotFound {
         return mapper.toDto(repository.get(id));
+    }
+
+    public List<MessageDto> getUserMessages(@NotNull String user) throws MessageNotFound {
+        //TODO remove user and use context holder after login mechanism introduced
+        return mapper.toDtoList(repository.getUserMessages(user));
     }
 }

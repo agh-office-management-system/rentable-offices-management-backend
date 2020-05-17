@@ -311,17 +311,6 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "Create Survey",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": ""
-						}
-					},
-					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -427,6 +416,103 @@
 								"1",
 								"reject",
 								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Message",
+			"item": [
+				{
+					"name": "Send Message",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"from\": \"ADMIN\",\n\t\"to\": \"JKowalski\",\n\t\"content\": \"Hello world message\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9080/api/message/send",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"api",
+								"message",
+								"send"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get messages",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9080/api/message/user/JKowalski",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"api",
+								"message",
+								"user",
+								"JKowalski"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get message by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9080/api/message/1",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"api",
+								"message",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mark message as read",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "localhost:9080/api/message/1/markAsRead",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"api",
+								"message",
+								"1",
+								"markAsRead"
 							]
 						}
 					},

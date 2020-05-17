@@ -10,9 +10,11 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class MessageDto {
+    private Long id;
     private String from;
     private String to;
 
     private String content;
+    private boolean read;
     private LocalDateTime sentAt;
 }

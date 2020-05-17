@@ -9,6 +9,6 @@ import pl.edu.agh.rentableoffices.messaging.model.UserMessage;
 public class MessageMapper implements AbstractMapper<UserMessage, MessageDto> {
     @Override
     public MessageDto toDto(UserMessage entity) {
-        return new MessageDto(entity.getFrom(), entity.getTo(), entity.getContent(), entity.getCreatedAt());
+        return new MessageDto(entity.getId(), entity.getFrom(), entity.getTo(), entity.getContent(), entity.isRead(), entity.getCreatedAt());
     }
 }
