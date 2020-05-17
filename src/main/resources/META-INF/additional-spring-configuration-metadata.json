@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "message.queue.name",
+      "type": "java.lang.String",
+      "description": "Tenant message rabbitmq queue name"
+  }
+] }

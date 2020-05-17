@@ -1,9 +1,6 @@
 package pl.edu.agh.rentableoffices.messaging.model;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import pl.edu.agh.rentableoffices.common.EntityBase;
@@ -17,9 +14,10 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "message")
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class Message extends EntityBase {
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class UserMessage extends EntityBase {
     @CreatedBy
     @Column(name = "sender")
     private String from;
@@ -36,8 +34,8 @@ public class Message extends EntityBase {
 
     private boolean read;
 
-    public static Message create(String from, String to, String content) {
-        return new Message(from, to, content, LocalDateTime.now(),false);
+    public static UserMessage create(String from, String to, String content) {
+        return new UserMessage(from, to, content, LocalDateTime.now(),false);
     }
 
     public void markAsRead() {
