@@ -8,13 +8,9 @@ import lombok.Getter;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
-@ApiModel("Bazowa klasa odpowiedzi")
 public class ResponseDto<T> {
-    @ApiModelProperty("Odpowiedź serwera")
     private T response;
-    @ApiModelProperty("Błąd")
     private ErrorDto error;
-    @ApiModelProperty("Czy zapytanie zakończyło się sukcesem")
     private boolean isSuccess;
 
     public static ResponseDto<Void> success() {

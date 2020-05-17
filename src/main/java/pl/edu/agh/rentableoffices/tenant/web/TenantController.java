@@ -14,7 +14,6 @@ import pl.edu.agh.rentableoffices.tenant.service.*;
 
 @RestController
 @RequestMapping("/api/tenant")
-@Api(value = "Zestaw endpointów do zarządzania najemcami")
 @RequiredArgsConstructor
 public class TenantController {
     private final CreateTenantService createTenantService;
@@ -23,8 +22,6 @@ public class TenantController {
     private final TenantMessageService tenantMessageService;
 
     @PostMapping(produces = "application/json")
-    @ApiOperation(value = "Utwórz profil nowego najemcy",
-            authorizations = @Authorization("Pracownik administracji"))
     @PreAuthorize("hasRole('ROLE_ADMINISTRATION_EMPLOYEE')")
     public ResponseDto<Long> create(@RequestBody CreateTenantCommand command) {
         return ResponseDto.success(createTenantService.create(command));

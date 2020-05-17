@@ -8,11 +8,8 @@ import lombok.Getter;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
-@ApiModel("Błąd")
 public class ErrorDto {
-    @ApiModelProperty("Kod błędu")
     private String code;
-    @ApiModelProperty("Tłumaczenie błedu")
     private String message;
 
     public static ErrorDto of(String code) {
