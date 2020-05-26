@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import pl.edu.agh.rentableoffices.tenant.dto.survey.answer.AnswerDto;
 
 import java.util.Set;
 

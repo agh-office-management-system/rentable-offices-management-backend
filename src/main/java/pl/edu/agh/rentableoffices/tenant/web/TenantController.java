@@ -1,8 +1,5 @@
 package pl.edu.agh.rentableoffices.tenant.web;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.Authorization;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +7,10 @@ import pl.edu.agh.rentableoffices.common.ResponseDto;
 import pl.edu.agh.rentableoffices.office.exception.MaxOfficeCapacityReachedException;
 import pl.edu.agh.rentableoffices.tenant.dto.*;
 import pl.edu.agh.rentableoffices.tenant.exception.TenantNotFoundException;
-import pl.edu.agh.rentableoffices.tenant.service.*;
+import pl.edu.agh.rentableoffices.tenant.service.CreateTenantService;
+import pl.edu.agh.rentableoffices.tenant.service.TenantDetailsService;
+import pl.edu.agh.rentableoffices.tenant.service.TenantMessageService;
+import pl.edu.agh.rentableoffices.tenant.service.TenantUpdateService;
 
 @RestController
 @RequestMapping("/api/tenant")

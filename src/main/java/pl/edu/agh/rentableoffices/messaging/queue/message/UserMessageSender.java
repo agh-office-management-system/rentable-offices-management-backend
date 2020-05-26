@@ -9,6 +9,7 @@ import pl.edu.agh.rentableoffices.common.queue.AbstractSender;
 @Service
 public class UserMessageSender extends AbstractSender<UserMessageDto> {
 
+    @Override
     @Value("${message.routingKey.name}")
     protected void setRoutingKey(String routingKey) {
         super.setRoutingKey(routingKey);

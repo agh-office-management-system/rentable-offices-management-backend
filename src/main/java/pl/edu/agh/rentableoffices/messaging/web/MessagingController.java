@@ -1,11 +1,9 @@
 package pl.edu.agh.rentableoffices.messaging.web;
 
-import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.agh.rentableoffices.common.ResponseDto;
-import pl.edu.agh.rentableoffices.configuration.SwaggerTags;
 import pl.edu.agh.rentableoffices.messaging.dto.CreateMessageCommand;
 import pl.edu.agh.rentableoffices.messaging.dto.MessageDto;
 import pl.edu.agh.rentableoffices.messaging.exception.MessageNotFound;

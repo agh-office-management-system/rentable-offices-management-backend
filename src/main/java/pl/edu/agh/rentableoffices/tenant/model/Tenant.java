@@ -10,12 +10,14 @@ import pl.edu.agh.rentableoffices.office.model.Office;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.util.function.BooleanSupplier;
+import java.util.function.Supplier;
 
 @Entity
 @Table(name = "Tenant")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
 public class Tenant extends EntityBase {
     @Column(name = "first_name")
     private String firstName;
@@ -58,20 +60,6 @@ public class Tenant extends EntityBase {
     @ManyToOne
     private Office office;
 
-    public static Tenant createPrivate(
-            String firstName, String lastName, IdType idType, String idDocumentNumber,
-            PreferredMeansOfCommunication preferredMeansOfCommunication, String phoneNumber, String email) {
-        return new Tenant(firstName, lastName, null, null, true, idDocumentNumber, idType, preferredMeansOfCommunication,
-                phoneNumber, email, TenantStatus.CREATED, null,  null);
-    }
-
-    public static Tenant createLegal(
-            String companyName, Integer numberOfEmployees, IdType idType, String idDocumentNumber,
-            PreferredMeansOfCommunication preferredMeansOfCommunication, String phoneNumber, String email) {
-        return new Tenant(null, null, companyName, numberOfEmployees, true, idDocumentNumber, idType, preferredMeansOfCommunication,
-                phoneNumber, email, TenantStatus.CREATED, null,  null);
-    }
-
     public void update( String firstName, String lastName, String companyName, Integer numberOfEmployees, IdType idType, String idDocumentNumber,
                        PreferredMeansOfCommunication preferredMeansOfCommunication, String phoneNumber, String email) throws MaxOfficeCapacityReachedException {
         if(isPrivate) {
@@ -94,29 +82,31 @@ public class Tenant extends EntityBase {
     }
 
     public void verify() {
-        if(status != TenantStatus.CREATED && status != TenantStatus.CORRECTED) {
-            throw new IllegalStateException("INVALID_TENANT_STATUS");
-        }
+        checkStatus(() -> status != TenantStatus.CREATED && status != TenantStatus.CORRECTED);
         this.status = TenantStatus.VERIFIED;
     }
 
     public void reject(String reason) {
-        if(status != TenantStatus.CREATED && status != TenantStatus.CORRECTED) {
-            throw new IllegalStateException("INVALID_TENANT_STATUS");
-        }
+        checkStatus(() -> status != TenantStatus.CREATED && status != TenantStatus.CORRECTED);
         this.status = TenantStatus.REJECTED;
         this.rejectedReason = reason;
     }
 
     public void resubmit() {
-        if(status != TenantStatus.REJECTED) {
-            throw new IllegalStateException("INVALID_TENANT_STATUS");
-        }
+        checkStatus(() -> status != TenantStatus.REJECTED);
         this.status = TenantStatus.CORRECTED;
         this.rejectedReason = null;
     }
 
     public String getFullName() {
-        return firstName + " " + lastName + " (" + email +")";
+        return isPrivate
+                ? firstName + " " + lastName + " (" + email +")"
+                : companyName + " (" + email +")";
+    }
+
+    private void checkStatus(BooleanSupplier statusFunction) {
+        if(statusFunction.getAsBoolean()) {
+            throw new IllegalStateException("INVALID_TENANT_STATUS");
+        }
     }
 }

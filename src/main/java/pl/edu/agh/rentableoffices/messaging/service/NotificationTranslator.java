@@ -5,7 +5,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 import pl.edu.agh.rentableoffices.messaging.model.Notification;
-import pl.edu.agh.rentableoffices.messaging.model.NotificationType;
 
 @Service
 @RequiredArgsConstructor

@@ -2,7 +2,7 @@ package pl.edu.agh.rentableoffices.tenant.model.survey;
 
 import lombok.*;
 import pl.edu.agh.rentableoffices.common.EntityBase;
-import pl.edu.agh.rentableoffices.tenant.dto.survey.QuestionDto;
+import pl.edu.agh.rentableoffices.tenant.dto.survey.question.QuestionDto;
 import pl.edu.agh.rentableoffices.tenant.model.Tenant;
 
 import javax.persistence.*;
@@ -33,7 +33,7 @@ public class Survey extends EntityBase {
     public static Survey create(String name, String description, Set<QuestionDto> questions, List<Tenant> tenants) {
         Survey survey = new Survey(name, description, null, new HashSet<>(tenants));
         Set<Question> entityQuestions = questions.stream()
-                .map(q -> QuestionCreator.create(survey, q))
+                .map(QuestionCreator::create)
                 .collect(Collectors.toSet());
         survey.setQuestions(entityQuestions);
         return survey;

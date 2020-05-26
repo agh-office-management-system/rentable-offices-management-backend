@@ -1,10 +1,13 @@
 package pl.edu.agh.rentableoffices.tenant.model.survey;
 
-import pl.edu.agh.rentableoffices.tenant.dto.survey.QuestionDto;
-import pl.edu.agh.rentableoffices.tenant.dto.survey.RangeQuestionDto;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import pl.edu.agh.rentableoffices.tenant.dto.survey.question.QuestionDto;
+import pl.edu.agh.rentableoffices.tenant.dto.survey.question.RangeQuestionDto;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class QuestionCreator {
-    public static Question create(Survey survey, QuestionDto dto) {
+    public static Question create(QuestionDto dto) {
         switch (dto.getType()) {
             case "STRING" :
                 return StringQuestion.create(dto.getCode(), dto.getValue(), dto.isRequired());

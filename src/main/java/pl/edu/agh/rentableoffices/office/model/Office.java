@@ -69,20 +69,20 @@ public class Office extends EntityBase {
         if(newAddress != null ) {
             this.address.update(newAddress);
         }
-        OfficeHistory history = OfficeHistory.updated();
-        this.history.add(history);
+        OfficeHistory event = OfficeHistory.updated();
+        this.history.add(event);
     }
 
     public void assignTenant(Tenant tenant) throws MaxOfficeCapacityReachedException {
-        if(tenants.stream().anyMatch(t -> t.getId() == tenant.getId())) {
+        if(tenants.stream().anyMatch(t -> t.getId().equals(getId()))) {
             throw new TenantAlreadyAssignedException(tenant.getId(), getId());
         }
         if(maxTenants != null && tenants.size() == maxTenants) {
             throw new MaxOfficeCapacityReachedException(this.getId());
         }
         this.tenants.add(tenant);
-        OfficeHistory history = OfficeHistory.tenantAssigned();
-        this.history.add(history);
+        OfficeHistory event = OfficeHistory.tenantAssigned();
+        this.history.add(event);
     }
 
     public void removeTenant(Tenant tenant) {
@@ -90,8 +90,8 @@ public class Office extends EntityBase {
             throw new TenantNotAssignedException(this.getId(), tenant.getId());
         }
         this.tenants.remove(tenant);
-        OfficeHistory history = OfficeHistory.tenantRemoved();
-        this.history.add(history);
+        OfficeHistory event = OfficeHistory.tenantRemoved();
+        this.history.add(event);
     }
 
     public Integer getTenantCount() {
@@ -104,8 +104,8 @@ public class Office extends EntityBase {
     }
 
     public void completeRepair() {
-        OfficeHistory history = OfficeHistory.repairCompleted();
-        this.history.add(history);
+        OfficeHistory event = OfficeHistory.repairCompleted();
+        this.history.add(event);
     }
 
 

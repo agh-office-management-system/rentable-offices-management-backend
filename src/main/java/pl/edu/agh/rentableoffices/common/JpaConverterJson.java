@@ -12,7 +12,7 @@ import java.io.IOException;
 @Converter
 public class JpaConverterJson implements AttributeConverter<Object, String> {
 
-    private final static ObjectMapper objectMapper = new ObjectMapper();
+    private static final ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
     public String convertToDatabaseColumn(Object meta) {

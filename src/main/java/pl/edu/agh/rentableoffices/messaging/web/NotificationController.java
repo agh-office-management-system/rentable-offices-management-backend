@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.edu.agh.rentableoffices.common.ResponseDto;
 import pl.edu.agh.rentableoffices.messaging.dto.NotificationDto;
-import pl.edu.agh.rentableoffices.messaging.service.NotificationCreateService;
 import pl.edu.agh.rentableoffices.messaging.service.NotificationDetailsService;
 
 import java.util.List;

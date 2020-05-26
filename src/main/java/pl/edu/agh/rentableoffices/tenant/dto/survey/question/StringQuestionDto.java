@@ -1,4 +1,4 @@
-package pl.edu.agh.rentableoffices.tenant.dto.survey;
+package pl.edu.agh.rentableoffices.tenant.dto.survey.question;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
 

@@ -1,7 +1,7 @@
 package pl.edu.agh.rentableoffices.tenant.dto.survey;
 
 import lombok.*;
-import pl.edu.agh.rentableoffices.tenant.dto.survey.QuestionDto;
+import pl.edu.agh.rentableoffices.tenant.dto.survey.question.QuestionDto;
 
 import javax.validation.constraints.NotEmpty;
 import java.util.List;

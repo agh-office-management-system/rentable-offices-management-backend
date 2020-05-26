@@ -8,11 +8,12 @@ import javax.validation.constraints.NotNull;
 public class BusinessException extends Exception {
     @NotNull
     private final String code;
-    private Object[] params;
+    private final Object[] params;
 
     public BusinessException(@NotNull String code) {
         super();
         this.code = code;
+        this.params = null;
     }
 
     public BusinessException(@NotNull String code, Object[] params) {

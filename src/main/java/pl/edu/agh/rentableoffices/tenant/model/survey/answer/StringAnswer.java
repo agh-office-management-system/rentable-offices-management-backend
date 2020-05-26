@@ -1,10 +1,8 @@
 package pl.edu.agh.rentableoffices.tenant.model.survey.answer;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import pl.edu.agh.rentableoffices.tenant.model.survey.Question;
-import pl.edu.agh.rentableoffices.tenant.model.survey.Survey;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;

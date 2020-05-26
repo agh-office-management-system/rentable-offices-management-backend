@@ -7,8 +7,6 @@ import pl.edu.agh.rentableoffices.common.AddressDto;
 import pl.edu.agh.rentableoffices.office.dto.OfficeReportDto;
 import pl.edu.agh.rentableoffices.office.model.Office;
 
-import java.util.stream.Collectors;
-
 @Component
 @RequiredArgsConstructor
 public class OfficeReportMapper implements AbstractMapper<Office, OfficeReportDto> {

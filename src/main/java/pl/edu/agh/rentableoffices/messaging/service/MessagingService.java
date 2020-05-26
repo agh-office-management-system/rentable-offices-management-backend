@@ -55,7 +55,7 @@ public class MessagingService {
         return mapper.toDto(repository.get(id));
     }
 
-    public List<MessageDto> getUserMessages(@NotNull String user) throws MessageNotFound {
+    public List<MessageDto> getUserMessages(@NotNull String user) {
         //TODO remove user and use context holder after login mechanism introduced
         return mapper.toDtoList(repository.getUserMessages(user));
     }

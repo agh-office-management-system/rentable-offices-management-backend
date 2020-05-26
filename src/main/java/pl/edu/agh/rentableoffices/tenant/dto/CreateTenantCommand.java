@@ -1,9 +1,11 @@
 package pl.edu.agh.rentableoffices.tenant.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import pl.edu.agh.rentableoffices.tenant.model.IdType;
 import pl.edu.agh.rentableoffices.tenant.model.PreferredMeansOfCommunication;
-import pl.edu.agh.rentableoffices.tenant.model.TenantStatus;
 
 @NoArgsConstructor
 @AllArgsConstructor

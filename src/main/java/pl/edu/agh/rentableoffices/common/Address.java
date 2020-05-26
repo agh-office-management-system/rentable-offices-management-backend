@@ -1,7 +1,6 @@
 package pl.edu.agh.rentableoffices.common;
 
 import lombok.*;
-import org.springframework.context.annotation.Configuration;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;

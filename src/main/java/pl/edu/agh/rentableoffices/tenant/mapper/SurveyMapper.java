@@ -2,7 +2,7 @@ package pl.edu.agh.rentableoffices.tenant.mapper;
 
 import org.springframework.stereotype.Component;
 import pl.edu.agh.rentableoffices.common.AbstractMapper;
-import pl.edu.agh.rentableoffices.tenant.dto.survey.QuestionDto;
+import pl.edu.agh.rentableoffices.tenant.dto.survey.question.QuestionDto;
 import pl.edu.agh.rentableoffices.tenant.dto.survey.SurveyDto;
 import pl.edu.agh.rentableoffices.tenant.model.survey.Survey;
 

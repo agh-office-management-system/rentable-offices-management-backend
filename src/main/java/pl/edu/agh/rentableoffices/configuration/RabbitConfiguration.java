@@ -2,7 +2,6 @@ package pl.edu.agh.rentableoffices.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -32,7 +31,7 @@ public class RabbitConfiguration {
     }
 
     @Bean
-    DirectExchange exchange() {
+    DirectExchange directExchange() {
         log.info("Using exchange {}", exchange);
         return new DirectExchange(exchange);
     }

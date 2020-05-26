@@ -1,13 +1,11 @@
-package pl.edu.agh.rentableoffices.tenant.dto.survey;
+package pl.edu.agh.rentableoffices.tenant.dto.survey.question;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import lombok.*;
-import pl.edu.agh.rentableoffices.tenant.model.survey.BooleanQuestion;
+import lombok.Getter;
 import pl.edu.agh.rentableoffices.tenant.model.survey.Question;
-import pl.edu.agh.rentableoffices.tenant.model.survey.QuestionType;
 import pl.edu.agh.rentableoffices.tenant.model.survey.RangeQuestion;
 
 @Getter

@@ -8,6 +8,7 @@ import pl.edu.agh.rentableoffices.tenant.dao.TenantRepository;
 import pl.edu.agh.rentableoffices.tenant.dto.CreateTenantCommand;
 import pl.edu.agh.rentableoffices.tenant.exception.TenantNotFoundException;
 import pl.edu.agh.rentableoffices.tenant.model.Tenant;
+import pl.edu.agh.rentableoffices.tenant.model.TenantBuilder;
 
 import javax.transaction.Transactional;
 
@@ -20,25 +21,22 @@ public class CreateTenantService {
     private final TenantMessageService messageService;
     private final NotificationCreateService notificationCreateService;
 
-    //TODO - Informacja o próbie utworzenia nowego profilu trafia do najemcy, który weryfikuje poprawność wprowadzonych informacji
     public Long create(CreateTenantCommand command) {
-        //TODO - Dorobić Builder
-        Tenant tenant;
-        if(command.isPrivate()) {
-            tenant = Tenant.createPrivate(command.getFirstName(), command.getLastName(),
-                    command.getIdType(), command.getIdDocumentNumber(), command.getPreferredMeansOfCommunication(),
-                    command.getPhoneNumber(), command.getEmail());
-        } else {
-            tenant = Tenant.createLegal(command.getCompanyName(), command.getNumberOfEmployees(),
-                    command.getIdType(), command.getIdDocumentNumber(), command.getPreferredMeansOfCommunication(),
-                    command.getPhoneNumber(), command.getEmail());
-        }
+        TenantBuilder tenantBuilder = command.isPrivate()
+                ? TenantBuilder.newPrivate(command.getFirstName(), command.getLastName())
+                : TenantBuilder.newLegal(command.getCompanyName(), command.getNumberOfEmployees());
+        Tenant tenant = tenantBuilder
+                .email(command.getEmail())
+                .identification(command.getIdType(), command.getIdDocumentNumber())
+                .phone(command.getPhoneNumber())
+                .preferredMeansOfCommunication(command.getPreferredMeansOfCommunication())
+                .build();
         tenant = repository.save(tenant);
         log.info("Tenant {} created", tenant.getFullName());
         try{
             messageService.createMessageForTenant(tenant.getId(), "PLEASE_VERIFY");
         } catch (TenantNotFoundException e) {
-            e.printStackTrace();
+            log.error("Tenant not found", e);
         }
         notificationCreateService.createTenantCreatedNotification(tenant.getEmail());
         return tenant.getId();

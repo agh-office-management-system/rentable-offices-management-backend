@@ -70,6 +70,11 @@ public class TenantSurveyService {
         notificationCreateService.createSurveyAnswerSubmittedNotification(tenant.getEmail(), surveyAnswer.getId());
     }
 
+    public void getSurveyResults(@NotNull Long id) {
+        List<SurveyAnswer> survey = surveyAnswerRepository.getAllBySurveyId(id);
+        //survey.getA
+    }
+
     public void rejectSurvey(@NotNull Long id, @NotNull Long tenantId)
             throws SurveyNotFoundException, TenantNotFoundException {
         Survey survey = repository.get(id);

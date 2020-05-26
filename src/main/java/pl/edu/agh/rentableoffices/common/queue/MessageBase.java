@@ -1,7 +1,9 @@
 package pl.edu.agh.rentableoffices.common.queue;
 
-import lombok.*;
-import org.springframework.security.core.context.SecurityContextHolder;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import pl.edu.agh.rentableoffices.security.SecurityContextHelper;
 
 import java.io.Serializable;

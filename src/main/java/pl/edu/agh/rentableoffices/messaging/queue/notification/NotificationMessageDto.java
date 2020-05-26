@@ -21,5 +21,6 @@ public class NotificationMessageDto implements Serializable {
     private List<String> receivers;
     @NotNull
     private NotificationType notificationType;
+
     private Object[] payload;
 }

@@ -1,20 +1,23 @@
 package pl.edu.agh.rentableoffices.tenant.model.survey;
 
-import pl.edu.agh.rentableoffices.tenant.dto.survey.AnswerDto;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import pl.edu.agh.rentableoffices.tenant.dto.survey.answer.AnswerDto;
 import pl.edu.agh.rentableoffices.tenant.model.survey.answer.Answer;
 import pl.edu.agh.rentableoffices.tenant.model.survey.answer.BooleanAnswer;
 import pl.edu.agh.rentableoffices.tenant.model.survey.answer.RangeAnswer;
 import pl.edu.agh.rentableoffices.tenant.model.survey.answer.StringAnswer;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class AnswerCreator {
-    public static Answer create(Question question, AnswerDto dto) {
+    public static <T> Answer<T> create(Question question, AnswerDto<T> dto) {
         switch (question.getType()) {
             case STRING:
-                return StringAnswer.create(question, (String) dto.getValue());
+                return (Answer<T>) StringAnswer.create(question, (String) dto.getValue());
             case BOOLEAN:
-                return BooleanAnswer.create(question, (Boolean) dto.getValue());
+                return (Answer<T>) BooleanAnswer.create(question, (Boolean) dto.getValue());
             case RANGE:
-                return RangeAnswer.create(question, (Integer) dto.getValue());
+                return (Answer<T>) RangeAnswer.create((RangeQuestion) question, (Integer) dto.getValue());
             default:
                 throw new IllegalArgumentException();
         }

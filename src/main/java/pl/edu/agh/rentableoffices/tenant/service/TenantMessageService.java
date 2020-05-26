@@ -3,8 +3,6 @@ package pl.edu.agh.rentableoffices.tenant.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import pl.edu.agh.rentableoffices.messaging.dto.CreateGroupMessageCommand;
-import pl.edu.agh.rentableoffices.messaging.service.MessagingService;
 import pl.edu.agh.rentableoffices.tenant.dao.TenantRepository;
 import pl.edu.agh.rentableoffices.tenant.dto.CreateMessageForTenantsCommand;
 import pl.edu.agh.rentableoffices.tenant.exception.TenantNotFoundException;

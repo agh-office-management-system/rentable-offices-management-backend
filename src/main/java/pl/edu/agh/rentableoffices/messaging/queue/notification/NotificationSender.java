@@ -8,6 +8,7 @@ import pl.edu.agh.rentableoffices.common.queue.AbstractSender;
 @Slf4j
 @Service
 public class NotificationSender extends AbstractSender<NotificationMessageDto> {
+    @Override
     @Value("${notification.routingKey.name}")
     protected void setRoutingKey(String routingKey) {
         super.setRoutingKey(routingKey);

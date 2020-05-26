@@ -1,13 +1,9 @@
 package pl.edu.agh.rentableoffices.tenant.dto;
 
 import lombok.*;
-import pl.edu.agh.rentableoffices.office.model.Office;
 import pl.edu.agh.rentableoffices.tenant.model.IdType;
 import pl.edu.agh.rentableoffices.tenant.model.PreferredMeansOfCommunication;
 import pl.edu.agh.rentableoffices.tenant.model.TenantStatus;
-
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 @Builder
 @NoArgsConstructor

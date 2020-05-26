@@ -4,9 +4,8 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import pl.edu.agh.rentableoffices.common.BusinessException;
 import pl.edu.agh.rentableoffices.common.EntityBase;
-import pl.edu.agh.rentableoffices.tenant.dto.survey.AnswerDto;
+import pl.edu.agh.rentableoffices.tenant.dto.survey.answer.AnswerDto;
 import pl.edu.agh.rentableoffices.tenant.exception.SurverAnswersNotCompleteException;
 import pl.edu.agh.rentableoffices.tenant.model.Tenant;
 import pl.edu.agh.rentableoffices.tenant.model.survey.answer.Answer;
@@ -61,7 +60,7 @@ public class SurveyAnswer extends EntityBase {
     private static boolean allRequiredAnswered(Survey survey, Set<AnswerDto> answers) {
         return survey.getQuestions()
                 .stream()
-                .filter(q -> q.isRequired())
+                .filter(Question::isRequired)
                 .allMatch(q -> answers.stream().anyMatch(a -> a.getCode().equalsIgnoreCase(q.getCode())));
     }
 
