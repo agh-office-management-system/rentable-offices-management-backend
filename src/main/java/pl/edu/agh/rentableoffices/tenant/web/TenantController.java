@@ -13,7 +13,7 @@ import pl.edu.agh.rentableoffices.tenant.service.TenantMessageService;
 import pl.edu.agh.rentableoffices.tenant.service.TenantUpdateService;
 
 @RestController
-@RequestMapping("/api/tenant")
+@RequestMapping("/api/tenants")
 @RequiredArgsConstructor
 public class TenantController {
     private final CreateTenantService createTenantService;
