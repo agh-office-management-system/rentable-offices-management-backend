@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MissingRequestHeaderException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -34,6 +35,12 @@ public class WebControllerAdvice {
     @ResponseStatus(code = HttpStatus.FORBIDDEN)
     public ResponseDto<Void> handleIllegalArgument(IllegalArgumentException exception) {
         return ResponseDto.error("ILLEGAL_ARGUMENT");
+    }
+
+    @ExceptionHandler(MissingRequestHeaderException.class)
+    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
+    public ResponseDto<Void> handleMissingRequestHeader(MissingRequestHeaderException exception) {
+        return ResponseDto.error("MISSING_REQUEST_HEADER");
     }
 
     @ExceptionHandler(BusinessException.class)

@@ -1,4 +1,4 @@
-package pl.edu.agh.rentableoffices.security;
+package pl.edu.agh.rentableoffices.authentication.security;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;

@@ -50,6 +50,10 @@ public class Tenant extends EntityBase {
     @NotEmpty
     private String email;
 
+    @Column(name = "password", nullable = false)
+    @NotEmpty
+    private String password;
+
     @Column(name = "status")
     @Enumerated(value = EnumType.STRING)
     private TenantStatus status;

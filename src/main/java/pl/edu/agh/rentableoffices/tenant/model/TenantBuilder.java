@@ -10,6 +10,7 @@ public class TenantBuilder {
     private String email;
     private String firstName;
     private String lastName;
+    private String password;
 
     public static TenantBuilder newPrivate(String firstName, String lastName) {
         TenantBuilder builder = new TenantBuilder();
@@ -41,6 +42,11 @@ public class TenantBuilder {
         return this;
     }
 
+    public TenantBuilder password(String password) {
+        this.password = password;
+        return this;
+    }
+
     public TenantBuilder preferredMeansOfCommunication(PreferredMeansOfCommunication preferredMeansOfCommunication) {
         this.preferredMeansOfCommunication = preferredMeansOfCommunication;
         return this;
@@ -48,6 +54,6 @@ public class TenantBuilder {
 
     public Tenant build() {
         return new Tenant(firstName, lastName, companyName, numberOfEmployees, companyName != null,
-                idDocumentNumber, idType, preferredMeansOfCommunication, phoneNumber, email, TenantStatus.CREATED, null, null);
+                idDocumentNumber, idType, preferredMeansOfCommunication, phoneNumber, email, password, TenantStatus.CREATED, null, null);
     }
 }

@@ -8,11 +8,10 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
-import pl.edu.agh.rentableoffices.security.RestAccessDeniedHandler;
-import pl.edu.agh.rentableoffices.security.RestAuthenticationEntryPoint;
-import pl.edu.agh.rentableoffices.security.filters.LandlordsTokenAuthenticationFilter;
-import pl.edu.agh.rentableoffices.security.filters.TenantsTokenAuthenticationFilter;
-import pl.edu.agh.rentableoffices.security.jwt.JwtValidator;
+import pl.edu.agh.rentableoffices.authentication.security.RestAccessDeniedHandler;
+import pl.edu.agh.rentableoffices.authentication.security.RestAuthenticationEntryPoint;
+import pl.edu.agh.rentableoffices.authentication.security.filters.TokenAuthenticationFilter;
+import pl.edu.agh.rentableoffices.authentication.security.jwt.JwtValidator;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -29,17 +28,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .accessDeniedHandler(new RestAccessDeniedHandler());
 
         JwtValidator jwtValidator = new JwtValidator();
+
         http
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/tenants/login", "/landlords/login").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/tenants/login", "/api/landlords/login").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/tenants", "/api/landlords").permitAll()
                 .and()
                 .authorizeRequests()
                 .anyRequest().authenticated()
                 .and()
-                .addFilterBefore(new LandlordsTokenAuthenticationFilter(jwtValidator, authenticationEntryPoint),
-                        BasicAuthenticationFilter.class)
-                .addFilterBefore(new TenantsTokenAuthenticationFilter(jwtValidator, authenticationEntryPoint),
-                        BasicAuthenticationFilter.class);
+                .addFilterBefore(new TokenAuthenticationFilter(jwtValidator, authenticationEntryPoint), BasicAuthenticationFilter.class);
 
         http.csrf().disable();
         http.cors().configurationSource(request -> {

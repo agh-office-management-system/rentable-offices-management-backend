@@ -1,11 +1,11 @@
-package pl.edu.agh.rentableoffices.security.jwt;
+package pl.edu.agh.rentableoffices.authentication.security.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.springframework.http.HttpHeaders;
-import pl.edu.agh.rentableoffices.security.LandlordPrincipal;
-import pl.edu.agh.rentableoffices.security.Roles;
-import pl.edu.agh.rentableoffices.security.TenantPrincipal;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import pl.edu.agh.rentableoffices.authentication.security.AppPrincipal;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,18 +20,20 @@ public class JwtValidator {
         return "";
     }
 
-    public TenantPrincipal authenticateTenant(String token) {
+    public AppPrincipal authenticate(String token) {
         Claims claims = getClaimsFromToken(token);
-        String principalName = claims.getSubject();
-        String role = claims.get("roles", String.class);
-        return new TenantPrincipal(principalName, Roles.valueOf(role));
-    }
+        String email = claims.getSubject();
+        String fullName = claims.get("fullName", String.class);
+        String role = claims.get("role", String.class);
+        Long id = claims.get("id", Long.class);
 
-    public LandlordPrincipal authenticateLandlord(String token) {
-        Claims claims = getClaimsFromToken(token);
-        String principalName = claims.getSubject();
-        String role = claims.get("roles", String.class);
-        return new LandlordPrincipal(principalName, Roles.valueOf(role));
+        UserDetails tokenUserDetails = User.builder()
+                .username(email)
+                .password(token)
+                .authorities(role)
+                .build();
+
+        return new AppPrincipal(id, fullName, tokenUserDetails);
     }
 
     private Claims getClaimsFromToken(String token) {

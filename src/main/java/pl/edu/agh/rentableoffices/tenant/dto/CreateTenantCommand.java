@@ -23,4 +23,6 @@ public class CreateTenantCommand {
     private PreferredMeansOfCommunication preferredMeansOfCommunication;
     private String phoneNumber;
     private String email;
+
+    private String password;
 }

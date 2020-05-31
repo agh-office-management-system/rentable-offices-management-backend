@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import pl.edu.agh.rentableoffices.security.SecurityContextHelper;
+import pl.edu.agh.rentableoffices.authentication.security.SecurityContextHelper;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

@@ -1,4 +1,4 @@
-package pl.edu.agh.rentableoffices.security.jwt;
+package pl.edu.agh.rentableoffices.authentication.security.jwt;
 
 class JwtAuthenticationConfig {
 

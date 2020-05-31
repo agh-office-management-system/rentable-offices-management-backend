@@ -9,4 +9,6 @@ public interface TenantRepository extends JpaRepository<Tenant, Long> {
     default Tenant get(Long id) throws TenantNotFoundException {
         return findById(id).orElseThrow(() -> new TenantNotFoundException(id));
     }
+
+    Tenant getByEmail(String email);
 }
