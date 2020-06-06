@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import pl.edu.agh.rentableoffices.tenant.model.survey.Question;
 import pl.edu.agh.rentableoffices.tenant.model.survey.RangeQuestion;
@@ -16,11 +18,15 @@ import pl.edu.agh.rentableoffices.tenant.model.survey.RangeQuestion;
         @JsonSubTypes.Type(value = StringQuestionDto.class, name = "STRING"),
 })
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ApiModel("Zasób reprezentujący pytanie w ankiecie")
 public abstract class QuestionDto {
+    @ApiModelProperty("Kod pytania")
     protected String code;
 
+    @ApiModelProperty("Treść pytania")
     protected String value;
 
+    @ApiModelProperty("Czy odpowiedź jest wymagana?")
     private boolean required = false;
 
     @JsonProperty("type")

@@ -3,6 +3,8 @@ package pl.edu.agh.rentableoffices.tenant.dto.survey.answer;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import pl.edu.agh.rentableoffices.tenant.model.survey.answer.Answer;
 
@@ -14,8 +16,11 @@ import pl.edu.agh.rentableoffices.tenant.model.survey.answer.Answer;
         @JsonSubTypes.Type(value = StringAnswerDto.class, name = "STRING"),
 })
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ApiModel("Zasób reprezentujący odpowiedź na pytanie ankiety")
 public abstract class AnswerDto<T> {
+    @ApiModelProperty("Kod pytania")
     protected String code;
+    @ApiModelProperty("Odpowiedź")
     protected T value;
 
     public static <T> AnswerDto<T> create(Answer<T> q) {

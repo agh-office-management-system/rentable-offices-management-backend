@@ -12,7 +12,7 @@ import javax.validation.constraints.NotEmpty;
 @AllArgsConstructor
 @Getter
 @Setter
-@ApiModel("Polecenie utworzenie wiadomości")
+@ApiModel("Żądanie utworzenie wiadomości")
 public class CreateMessageCommand {
     //TODO remove
     @ApiModelProperty("Od kogo (email)")
