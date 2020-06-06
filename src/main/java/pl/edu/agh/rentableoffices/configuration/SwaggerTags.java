@@ -9,4 +9,5 @@ public class SwaggerTags {
     public static final String LOGIN = "Logowanie";
     public static final String NOTIFICATION = "Notyfikacje";
     public static final String SURVEY = "Ankiety";
+    public static final String TENANT = "Najemcy";
 }
