@@ -17,6 +17,13 @@ import pl.edu.agh.rentableoffices.authentication.security.jwt.JwtValidator;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final AuthenticationEntryPoint authenticationEntryPoint = new RestAuthenticationEntryPoint();
 
+    private static final String[] SWAGGER_ANT_MATCHERS = {"/v2/api-docs",
+            "/configuration/ui",
+            "/swagger-resources/**",
+            "/configuration/security",
+            "/swagger-ui.html",
+            "/webjars/**"};
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -31,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .authorizeRequests()
-                .antMatchers("/swagger-ui.html/*").permitAll()
+                .antMatchers(SWAGGER_ANT_MATCHERS).permitAll()
                 .antMatchers(HttpMethod.POST, "/api/tenants/login", "/api/landlords/login").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/tenants", "/api/landlords").permitAll()
                 .and()

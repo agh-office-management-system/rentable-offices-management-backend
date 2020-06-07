@@ -1,5 +1,6 @@
 package pl.edu.agh.rentableoffices.tenant.web;
 
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -10,10 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.edu.agh.rentableoffices.authentication.AuthenticationService;
 import pl.edu.agh.rentableoffices.authentication.LoginDto;
 import pl.edu.agh.rentableoffices.authentication.PrincipalDto;
+import pl.edu.agh.rentableoffices.configuration.SwaggerTags;
 
 @RestController
 @RequestMapping("/api/tenants")
 @RequiredArgsConstructor
+@Api(tags = SwaggerTags.LOGIN)
 public class TenantAuthenticationController {
 
     private final AuthenticationService authenticationService;
