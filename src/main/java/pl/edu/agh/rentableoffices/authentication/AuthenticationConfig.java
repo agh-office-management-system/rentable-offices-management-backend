@@ -27,16 +27,21 @@ public class AuthenticationConfig {
     }
 
     private AuthenticationManager getTenantsAuthManager(TenantRepository tenantRepository) {
-        DaoAuthenticationProvider o = new DaoAuthenticationProvider();
-        o.setPasswordEncoder(passwordEncoder);
-        o.setUserDetailsService(new TenantsDetailService(tenantRepository));
-        return new ProviderManager(Collections.singletonList(o));
+        DaoAuthenticationProvider provider = initDaoAuthenticationProvider();
+        provider.setUserDetailsService(new TenantsDetailService(tenantRepository));
+        return new ProviderManager(Collections.singletonList(provider));
     }
 
     private AuthenticationManager getLandlordsAuthManager(LandlordRepository landlordRepository) {
-        DaoAuthenticationProvider o = new DaoAuthenticationProvider();
-        o.setPasswordEncoder(passwordEncoder);
-        o.setUserDetailsService(new LandlordsDetailService(landlordRepository));
-        return new ProviderManager(Collections.singletonList(o));
+        DaoAuthenticationProvider provider = initDaoAuthenticationProvider();
+        provider.setUserDetailsService(new LandlordsDetailService(landlordRepository));
+        return new ProviderManager(Collections.singletonList(provider));
+    }
+
+    private DaoAuthenticationProvider initDaoAuthenticationProvider() {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setPasswordEncoder(passwordEncoder);
+        provider.setHideUserNotFoundExceptions(false);
+        return provider;
     }
 }
