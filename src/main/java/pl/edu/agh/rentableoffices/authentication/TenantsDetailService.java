@@ -25,7 +25,7 @@ public class TenantsDetailService implements UserDetailsService {
         UserDetails userDetails = User.builder()
                 .username(tenant.getEmail())
                 .password(tenant.getPassword())
-                .authorities(Roles.TENANT.name())
+                .authorities("ROLE_" + Roles.TENANT.name())
                 .build();
 
         return new AppPrincipal(tenant.getId(), tenant.getFullName(), userDetails);

@@ -26,7 +26,7 @@ public class LandlordsDetailService implements UserDetailsService {
         UserDetails userDetails = User.builder()
                 .username(landlord.getEmail())
                 .password(landlord.getPassword())
-                .authorities(landlord.getRole().name())
+                .authorities("ROLE_" + landlord.getRole().name())
                 .build();
 
         return new AppPrincipal(landlord.getId(), landlord.getFullName(), userDetails);
