@@ -12,4 +12,5 @@ public class SwaggerTags {
     public static final String TENANT = "Najemcy";
     public static final String LANDLORD = "Właściciel";
     public static final String OFFICE = "Biura";
+    public static final String INCIDENT = "Incydenty";
 }
