@@ -1,4 +1,4 @@
-package pl.edu.agh.rentableoffices.common;
+package pl.edu.agh.rentableoffices.common.exceptionhandlers;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -9,20 +9,15 @@ import org.springframework.web.bind.MissingRequestHeaderException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
-import java.nio.file.AccessDeniedException;
+import pl.edu.agh.rentableoffices.common.BusinessException;
+import pl.edu.agh.rentableoffices.common.BusinessRuntimeException;
+import pl.edu.agh.rentableoffices.common.ResponseDto;
 
 @RestControllerAdvice
 @RequiredArgsConstructor
 @Slf4j
 public class WebControllerAdvice {
     private final MessageSource messageSource;
-
-    @ExceptionHandler(AccessDeniedException.class)
-    @ResponseStatus(code = HttpStatus.FORBIDDEN)
-    public ResponseDto<Void> handleAccessDenied(AccessDeniedException exception) {
-        return ResponseDto.error("ACCESS_DENIED");
-    }
 
     @ExceptionHandler(IllegalStateException.class)
     @ResponseStatus(code = HttpStatus.FORBIDDEN)
