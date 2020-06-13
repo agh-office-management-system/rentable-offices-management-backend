@@ -2,9 +2,10 @@ package pl.edu.agh.rentableoffices.configuration;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -17,7 +18,8 @@ import pl.edu.agh.rentableoffices.authentication.security.jwt.JwtAuthenticationC
 import pl.edu.agh.rentableoffices.authentication.security.jwt.JwtCreator;
 import pl.edu.agh.rentableoffices.authentication.security.jwt.JwtValidator;
 
-@Configuration
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final AuthenticationEntryPoint authenticationEntryPoint = new RestAuthenticationEntryPoint();
 
@@ -52,7 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(SWAGGER_ANT_MATCHERS).permitAll()
                 .antMatchers(HttpMethod.POST, "/api/tenants/login", "/api/landlords/login").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/tenants", "/api/landlords").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/landlords").permitAll()
                 .and()
                 .authorizeRequests()
                 .anyRequest().authenticated()
