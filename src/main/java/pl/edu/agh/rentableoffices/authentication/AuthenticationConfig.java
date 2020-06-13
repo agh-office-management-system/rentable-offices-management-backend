@@ -18,9 +18,9 @@ public class AuthenticationConfig {
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Bean
-    public AuthenticationService authenticationServiceBean(TenantRepository tenantRepository,
+    public AuthenticationService authenticationServiceBean(JwtCreator jwtCreator,
+                                                           TenantRepository tenantRepository,
                                                            LandlordRepository landlordRepository) {
-        JwtCreator jwtCreator = new JwtCreator();
         AuthenticationManager tenantsAuthManager = getTenantsAuthManager(tenantRepository);
         AuthenticationManager landlordsAuthManager = getLandlordsAuthManager(landlordRepository);
         return new AuthenticationService(jwtCreator, tenantsAuthManager, landlordsAuthManager, passwordEncoder);

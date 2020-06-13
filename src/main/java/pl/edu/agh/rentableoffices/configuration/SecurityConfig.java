@@ -1,5 +1,7 @@
 package pl.edu.agh.rentableoffices.configuration;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,11 +13,21 @@ import org.springframework.web.cors.CorsConfiguration;
 import pl.edu.agh.rentableoffices.authentication.security.RestAccessDeniedHandler;
 import pl.edu.agh.rentableoffices.authentication.security.RestAuthenticationEntryPoint;
 import pl.edu.agh.rentableoffices.authentication.security.filters.TokenAuthenticationFilter;
+import pl.edu.agh.rentableoffices.authentication.security.jwt.JwtAuthenticationConfig;
+import pl.edu.agh.rentableoffices.authentication.security.jwt.JwtCreator;
 import pl.edu.agh.rentableoffices.authentication.security.jwt.JwtValidator;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final AuthenticationEntryPoint authenticationEntryPoint = new RestAuthenticationEntryPoint();
+
+    @Value("${jwt.expirationTime}")
+    private int expiration;
+
+    @Value("${jwt.secret}")
+    private String secret;
+
+    private JwtAuthenticationConfig authenticationConfig;
 
     private static final String[] SWAGGER_ANT_MATCHERS = {"/v2/api-docs",
             "/configuration/ui",
@@ -34,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(authenticationEntryPoint)
                 .accessDeniedHandler(new RestAccessDeniedHandler());
 
-        JwtValidator jwtValidator = new JwtValidator();
+        JwtValidator jwtValidator = new JwtValidator(getAuthConfig());
 
         http
                 .authorizeRequests()
@@ -56,5 +68,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             corsConfiguration.addAllowedMethod(HttpMethod.PUT);
             return corsConfiguration;
         });
+    }
+
+    @Bean
+    public JwtCreator jwtCreatorBean() {
+        JwtAuthenticationConfig authConfig = getAuthConfig();
+        return new JwtCreator(authConfig);
+    }
+
+    private JwtAuthenticationConfig getAuthConfig() {
+        if (authenticationConfig == null) {
+            authenticationConfig = new JwtAuthenticationConfig(expiration, secret);
+        }
+        return authenticationConfig;
     }
 }

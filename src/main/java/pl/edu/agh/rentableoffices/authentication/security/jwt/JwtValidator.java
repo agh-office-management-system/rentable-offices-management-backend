@@ -12,6 +12,12 @@ import javax.servlet.http.HttpServletRequest;
 public class JwtValidator {
     private static final String TOKEN_PREFIX = "Bearer ";
 
+    private final JwtAuthenticationConfig authenticationConfig;
+
+    public JwtValidator(JwtAuthenticationConfig authenticationConfig) {
+        this.authenticationConfig = authenticationConfig;
+    }
+
     public String getTokenFromRequest(HttpServletRequest request) {
         String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
         if (authHeader != null && authHeader.startsWith(TOKEN_PREFIX)) {
@@ -38,7 +44,7 @@ public class JwtValidator {
 
     private Claims getClaimsFromToken(String token) {
         return Jwts.parser()
-                .setSigningKey(JwtAuthenticationConfig.getSecret().getBytes())
+                .setSigningKey(authenticationConfig.getSecret().getBytes())
                 .parseClaimsJws(token)
                 .getBody();
     }

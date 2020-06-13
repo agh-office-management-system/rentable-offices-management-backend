@@ -1,16 +1,11 @@
 package pl.edu.agh.rentableoffices.authentication.security.jwt;
 
-class JwtAuthenticationConfig {
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-    private static final int expiration = 60 * 60; // default 1 hour
-
-    private static final String secret = "secret";
-
-    public static int getExpiration() {
-        return expiration;
-    }
-
-    public static String getSecret() {
-        return secret;
-    }
+@Getter
+@AllArgsConstructor
+public class JwtAuthenticationConfig {
+    private int expiration;
+    private String secret;
 }
