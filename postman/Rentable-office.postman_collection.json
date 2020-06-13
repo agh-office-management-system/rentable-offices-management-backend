@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "bf6a6a82-d332-4341-a06e-e0959364f6c5",
+		"_postman_id": "8ee13d58-30fe-43bb-9ff9-5b860af2e503",
 		"name": "Rentable-office",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -11,6 +11,16 @@
 				{
 					"name": "Create Office",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{authorizationHeader}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -23,13 +33,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:9080/api/office",
+							"raw": "{{host}}/office",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "9080",
 							"path": [
-								"api",
 								"office"
 							]
 						}
@@ -39,16 +47,24 @@
 				{
 					"name": "Get apartment by id",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{authorizationHeader}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:9080/api/office/1",
+							"raw": "{{host}}/office/1",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "9080",
 							"path": [
-								"api",
 								"office",
 								"1"
 							]
@@ -59,6 +75,16 @@
 				{
 					"name": "Update apartment",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{authorizationHeader}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
@@ -71,13 +97,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:9080/api/office/1",
+							"raw": "{{host}}/office/1",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "9080",
 							"path": [
-								"api",
 								"office",
 								"1"
 							]
@@ -88,16 +112,24 @@
 				{
 					"name": "Get office history",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{authorizationHeader}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:9080/api/office/report/1",
+							"raw": "{{host}}/office/report/1",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "9080",
 							"path": [
-								"api",
 								"office",
 								"report",
 								"1"
@@ -109,16 +141,24 @@
 				{
 					"name": "Get capacity reports",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{authorizationHeader}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:9080/api/office/report",
+							"raw": "{{host}}/office/report",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "9080",
 							"path": [
-								"api",
 								"office",
 								"report"
 							]
@@ -135,11 +175,21 @@
 				{
 					"name": "Create tenant",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{authorizationHeader}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"email\": \"JKowalski@gmail.com\",\r\n  \"firstName\": \"Jan\",\r\n  \"idDocumentNumber\": \"12345\",\r\n  \"idType\": \"PESEL\",\r\n  \"lastName\": \"Kowalski\",\r\n  \"phoneNumber\": \"123456789\",\r\n  \"preferredMeansOfCommunication\": \"SMS\",\r\n  \"private\": true\r\n}",
+							"raw": "{\r\n  \"email\": \"JKowalski@gmail.com\",\r\n  \"firstName\": \"Jan\",\r\n  \"idDocumentNumber\": \"12345\",\r\n  \"idType\": \"PESEL\",\r\n  \"lastName\": \"Kowalski\",\r\n  \"phoneNumber\": \"123456789\",\r\n  \"preferredMeansOfCommunication\": \"SMS\",\r\n  \"private\": true,\r\n  \"password\": \"password1\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -147,14 +197,12 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:9080/api/tenant",
+							"raw": "{{host}}/tenants",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "9080",
 							"path": [
-								"api",
-								"tenant"
+								"tenants"
 							]
 						}
 					},
@@ -163,6 +211,16 @@
 				{
 					"name": "Edit tenant",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{authorizationHeader}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
@@ -175,13 +233,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:9080/api/tenant/1",
+							"raw": "{{host}}/tenant/1",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "9080",
 							"path": [
-								"api",
 								"tenant",
 								"1"
 							]
@@ -192,6 +248,16 @@
 				{
 					"name": "Verify tenant",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{authorizationHeader}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
@@ -204,13 +270,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:9080/api/tenant/1/verify",
+							"raw": "{{host}}/tenant/1/verify",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "9080",
 							"path": [
-								"api",
 								"tenant",
 								"1",
 								"verify"
@@ -222,17 +286,25 @@
 				{
 					"name": "Get tenant",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{authorizationHeader}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:9080/api/tenant/1",
+							"raw": "{{host}}/tenants/1",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "9080",
 							"path": [
-								"api",
-								"tenant",
+								"tenants",
 								"1"
 							]
 						}
@@ -242,16 +314,24 @@
 				{
 					"name": "Assign tenant to office",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{authorizationHeader}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "localhost:9080/api/office/1/tenant/1",
+							"raw": "{{host}}/office/1/tenant/1",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "9080",
 							"path": [
-								"api",
 								"office",
 								"1",
 								"tenant",
@@ -264,16 +344,24 @@
 				{
 					"name": "Remove tenant from the office",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{authorizationHeader}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:9080/api/office/1/tenant/1",
+							"raw": "{{host}}/office/1/tenant/1",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "9080",
 							"path": [
-								"api",
 								"office",
 								"1",
 								"tenant",
@@ -286,6 +374,16 @@
 				{
 					"name": "Create message for tenants",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{authorizationHeader}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -298,13 +396,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:9080/api/tenant/message",
+							"raw": "{{host}}/tenant/message",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "9080",
 							"path": [
-								"api",
 								"tenant",
 								"message"
 							]
@@ -321,6 +417,16 @@
 				{
 					"name": "Create Survey",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{authorizationHeader}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -333,13 +439,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:9080/api/tenant/survey",
+							"raw": "{{host}}/tenant/survey",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "9080",
 							"path": [
-								"api",
 								"tenant",
 								"survey"
 							]
@@ -350,16 +454,24 @@
 				{
 					"name": "Get Survey",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{authorizationHeader}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:9080/api/tenant/survey/1",
+							"raw": "{{host}}/tenant/survey/1",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "9080",
 							"path": [
-								"api",
 								"tenant",
 								"survey",
 								"1"
@@ -371,6 +483,16 @@
 				{
 					"name": "Submit Survey",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{authorizationHeader}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -383,13 +505,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:9080/api/tenant/survey/1",
+							"raw": "{{host}}/tenant/survey/1",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "9080",
 							"path": [
-								"api",
 								"tenant",
 								"survey",
 								"1"
@@ -401,16 +521,24 @@
 				{
 					"name": "Reject Survey",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{authorizationHeader}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "localhost:9080/api/tenant/survey/1/reject/1",
+							"raw": "{{host}}/tenant/survey/1/reject/1",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "9080",
 							"path": [
-								"api",
 								"tenant",
 								"survey",
 								"1",
@@ -430,6 +558,16 @@
 				{
 					"name": "Send Message",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{authorizationHeader}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -442,13 +580,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:9080/api/message/send",
+							"raw": "{{host}}/message/send",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "9080",
 							"path": [
-								"api",
 								"message",
 								"send"
 							]
@@ -459,16 +595,24 @@
 				{
 					"name": "Get messages",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{authorizationHeader}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:9080/api/message/user/JKowalski",
+							"raw": "{{host}}/message/user/JKowalski",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "9080",
 							"path": [
-								"api",
 								"message",
 								"user",
 								"JKowalski"
@@ -480,16 +624,24 @@
 				{
 					"name": "Get message by id",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{authorizationHeader}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:9080/api/message/1",
+							"raw": "{{host}}/message/1",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "9080",
 							"path": [
-								"api",
 								"message",
 								"1"
 							]
@@ -500,16 +652,24 @@
 				{
 					"name": "Mark message as read",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{authorizationHeader}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "localhost:9080/api/message/1/markAsRead",
+							"raw": "{{host}}/message/1/markAsRead",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "9080",
 							"path": [
-								"api",
 								"message",
 								"1",
 								"markAsRead"
@@ -527,18 +687,217 @@
 				{
 					"name": "Get notifications",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{authorizationHeader}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:9080/api/notification/JKowalski",
+							"raw": "{{host}}/notification/JKowalski",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "9080",
 							"path": [
-								"api",
 								"notification",
 								"JKowalski"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Tenants API",
+			"item": [
+				{
+					"name": "1. Registration",
+					"item": [
+						{
+							"name": "1. Verify tenant",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"accepted\": true\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/tenants/1/verify",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"tenants",
+										"1",
+										"verify"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "Tenant registration related API endpoints.",
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "2.Authentication",
+					"item": [
+						{
+							"name": "1.Tenant Login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "2c32e3af-4cd6-4cec-ad86-dd16e5b21fa2",
+										"exec": [
+											"var token = postman.getResponseHeader(\"Authorization\");",
+											"postman.setEnvironmentVariable(\"authorizationHeader\", token);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "password1",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "JKowalski@gmail.com",
+											"type": "string"
+										},
+										{
+											"key": "saveHelperData",
+											"type": "any"
+										},
+										{
+											"key": "showPassword",
+											"value": false,
+											"type": "boolean"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/tenants/login",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"tenants",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Landlords API",
+			"item": [
+				{
+					"name": "1.Create landlord",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"landlord@gmail.com\",\r\n  \"password\": \"password1\",\r\n  \"firstName\": \"Jan\",\r\n  \"lastName\": \"Nowak\",\r\n  \"phoneNumber\": \"123456789\",\r\n  \"role\": \"ADMINISTRATION_EMPLOYEE\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/landlords",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"landlords"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.Landlord Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d219e67c-4bc7-42e8-983c-5749d1bc1e32",
+								"exec": [
+									"var token = postman.getResponseHeader(\"Authorization\");",
+									"postman.setEnvironmentVariable(\"authorizationHeader\", token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "password1",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "landlord@gmail.com",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"type": "any"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/landlords/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"landlords",
+								"login"
 							]
 						}
 					},
