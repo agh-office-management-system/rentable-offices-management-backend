@@ -17,7 +17,7 @@ import javax.validation.constraints.NotEmpty;
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 public class Landlord extends EntityBase {
 
-    @Column(name = "email")
+    @Column(name = "email", nullable = false, unique = true)
     @NotEmpty
     private String email;
 
@@ -27,10 +27,10 @@ public class Landlord extends EntityBase {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "phone_number")
+    @Column(name = "phone_number", unique = true)
     private String phoneNumber;
 
-    @Column(name = "role")
+    @Column(name = "role", nullable = false)
     @Enumerated(value = EnumType.STRING)
     private Roles role;
 
