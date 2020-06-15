@@ -13,7 +13,7 @@ public class OfficeReportMapper implements AbstractMapper<Office, OfficeReportDt
 
     @Override
     public OfficeReportDto toDto(Office entity) {
-        AddressDto addressDto =  AddressDto.builder()
+        AddressDto address =  AddressDto.builder()
                 .city(entity.getAddress().getCity())
                 .country(entity.getAddress().getCountry())
                 .number(entity.getAddress().getNumber())
@@ -21,7 +21,7 @@ public class OfficeReportMapper implements AbstractMapper<Office, OfficeReportDt
                 .street(entity.getAddress().getStreet())
                 .build();
 
-        return new OfficeReportDto(entity.getId(), addressDto, entity.getTenantCount());
+        return new OfficeReportDto(entity.getId(), address, entity.getTenantCount(), entity.getMaxTenants());
     }
 
 }
