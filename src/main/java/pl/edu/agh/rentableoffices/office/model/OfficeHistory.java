@@ -16,6 +16,10 @@ import java.time.LocalDateTime;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class OfficeHistory extends EntityBase {
 
+    @ManyToOne
+    @JoinColumn(name="office_id", nullable = false)
+    private Office office;
+
     @NotNull
     @Column(name = "type")
     @Enumerated(value = EnumType.STRING)
@@ -32,24 +36,24 @@ public class OfficeHistory extends EntityBase {
     @CreatedBy
     private String createdBy;
 
-    public static OfficeHistory created() {
-        return new OfficeHistory( OfficeHistoryType.CREATED, null, LocalDateTime.now(), null);
+    public static OfficeHistory created(Office office) {
+        return new OfficeHistory(office, OfficeHistoryType.CREATED, null, LocalDateTime.now(), null);
     }
 
     //TODO payload
-    public static OfficeHistory updated() {
-        return new OfficeHistory(OfficeHistoryType.UPDATED, null, LocalDateTime.now(), null);
+    public static OfficeHistory updated(Office office) {
+        return new OfficeHistory(office, OfficeHistoryType.UPDATED, null, LocalDateTime.now(), null);
     }
 
-    public static OfficeHistory tenantAssigned() {
-        return new OfficeHistory(OfficeHistoryType.TENANT_ASSIGNED, null, LocalDateTime.now(), null);
+    public static OfficeHistory tenantAssigned(Office office) {
+        return new OfficeHistory(office, OfficeHistoryType.TENANT_ASSIGNED, null, LocalDateTime.now(), null);
     }
 
-    public static OfficeHistory tenantRemoved() {
-        return new OfficeHistory(OfficeHistoryType.TENANT_REMOVED, null, LocalDateTime.now(), null);
+    public static OfficeHistory tenantRemoved(Office office) {
+        return new OfficeHistory(office, OfficeHistoryType.TENANT_REMOVED, null, LocalDateTime.now(), null);
     }
 
-    public static OfficeHistory repairCompleted() {
-        return new OfficeHistory(OfficeHistoryType.REPAIR_COMPLETED, null, LocalDateTime.now(), null);
+    public static OfficeHistory repairCompleted(Office office) {
+        return new OfficeHistory(office, OfficeHistoryType.REPAIR_COMPLETED, null, LocalDateTime.now(), null);
     }
 }

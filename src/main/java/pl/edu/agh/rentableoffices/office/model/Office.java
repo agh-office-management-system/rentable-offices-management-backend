@@ -21,7 +21,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Entity
-@Table(name = "Apartment")
+@Table(name = "Office")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -45,12 +45,14 @@ public class Office extends EntityBase {
     @Positive
     private Integer maxTenants;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "office")
     private List<OfficeHistory> history;
 
     public static Office create(Integer floor, Integer roomCount, Double area, Integer maxTenants, Address address) {
-        OfficeHistory history = OfficeHistory.created();
-        return new Office(floor, roomCount, area, address, Collections.emptyList(), maxTenants, Arrays.asList(history));
+        Office office = new Office(floor, roomCount, area, address, Collections.emptyList(), maxTenants, null);
+        OfficeHistory history = OfficeHistory.created(office);
+        office.history = Arrays.asList(history);
+        return office;
     }
 
     public void update(Integer newRoomCount, Double newArea, Integer maxTenants, AddressDto newAddress) {
@@ -69,7 +71,7 @@ public class Office extends EntityBase {
         if(newAddress != null ) {
             this.address.update(newAddress);
         }
-        OfficeHistory event = OfficeHistory.updated();
+        OfficeHistory event = OfficeHistory.updated(this);
         this.history.add(event);
     }
 
@@ -81,7 +83,7 @@ public class Office extends EntityBase {
             throw new MaxOfficeCapacityReachedException(this.getId());
         }
         this.tenants.add(tenant);
-        OfficeHistory event = OfficeHistory.tenantAssigned();
+        OfficeHistory event = OfficeHistory.tenantAssigned(this);
         this.history.add(event);
     }
 
@@ -90,7 +92,7 @@ public class Office extends EntityBase {
             throw new TenantNotAssignedException(this.getId(), tenant.getId());
         }
         this.tenants.remove(tenant);
-        OfficeHistory event = OfficeHistory.tenantRemoved();
+        OfficeHistory event = OfficeHistory.tenantRemoved(this);
         this.history.add(event);
     }
 
@@ -104,7 +106,7 @@ public class Office extends EntityBase {
     }
 
     public void completeRepair() {
-        OfficeHistory event = OfficeHistory.repairCompleted();
+        OfficeHistory event = OfficeHistory.repairCompleted(this);
         this.history.add(event);
     }
 
