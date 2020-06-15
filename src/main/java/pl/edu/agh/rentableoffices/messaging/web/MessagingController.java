@@ -32,11 +32,11 @@ public class MessagingController {
         return ResponseDto.success();
     }
 
-    @GetMapping("/user/{user}")
-    @PreAuthorize("#user == authentication.principal.username")
+    @GetMapping("/user/{username}")
+    @PreAuthorize("#username == authentication.principal.username")
     @ApiOperation("Pobranie wiadomości użytkownika")
-    public ResponseDto<List<MessageDto>> getUserMessages(@ApiParam("Nazwa użytkownika") @PathVariable String user) throws MessageNotFound {
-        return ResponseDto.success(messagingService.getUserMessages(user));
+    public ResponseDto<List<MessageDto>> getUserMessages(@ApiParam("Nazwa użytkownika") @PathVariable String username) throws MessageNotFound {
+        return ResponseDto.success(messagingService.getUserMessages(username));
     }
 
     @GetMapping("/{id}")

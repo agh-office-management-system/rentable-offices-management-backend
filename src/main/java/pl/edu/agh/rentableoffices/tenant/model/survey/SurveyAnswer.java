@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import pl.edu.agh.rentableoffices.common.BusinessRuntimeException;
 import pl.edu.agh.rentableoffices.common.EntityBase;
 import pl.edu.agh.rentableoffices.tenant.dto.survey.answer.AnswerDto;
 import pl.edu.agh.rentableoffices.tenant.exception.SurverAnswersNotCompleteException;
@@ -66,6 +67,6 @@ public class SurveyAnswer extends EntityBase {
 
     private static Question findQuestion(Survey survey, String code) {
         return survey.getQuestions().stream().filter(q -> q.getCode().equalsIgnoreCase(code)).findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Question does not exist in survey"));
+                .orElseThrow(() -> new BusinessRuntimeException("QUESTION_DOES_NOT_EXIST"));
     }
 }

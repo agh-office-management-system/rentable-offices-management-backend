@@ -10,6 +10,7 @@ import pl.edu.agh.rentableoffices.common.AddressDto;
 @Setter
 public class OfficeReportDto {
     private Long id;
-    private AddressDto addressDto;
+    private AddressDto address;
     private Integer activeTenants;
+    private Integer maxTenants;
 }

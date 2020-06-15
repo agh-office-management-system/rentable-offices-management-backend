@@ -3,6 +3,8 @@ package pl.edu.agh.rentableoffices.tenant.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import pl.edu.agh.rentableoffices.common.BusinessRuntimeException;
 import pl.edu.agh.rentableoffices.messaging.service.NotificationCreateService;
 import pl.edu.agh.rentableoffices.office.exception.MaxOfficeCapacityReachedException;
 import pl.edu.agh.rentableoffices.tenant.dao.TenantRepository;
@@ -36,6 +38,9 @@ public class TenantUpdateService {
             log.info("Tenant {} verified", tenant.getFullName());
             notificationCreateService.createTenantVerifiedNotification(tenant.getEmail());
         } else {
+            if(StringUtils.isEmpty(command.getRejectionReason())) {
+                throw new BusinessRuntimeException("REJECTION_REASON_REQUIRED");
+            }
             tenant.reject(command.getRejectionReason());
             log.info("Tenant {} rejected", tenant.getFullName());
             notificationCreateService.createTenantRejectedNotification(tenant.getEmail(), command.getRejectionReason());
