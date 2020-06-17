@@ -8,6 +8,7 @@ import pl.edu.agh.rentableoffices.office.mapper.OfficeMapper;
 
 import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Service
 @Transactional
@@ -18,5 +19,9 @@ public class OfficeDetailsService {
 
     public OfficeDto get(@NotNull Long id) {
         return mapper.toDto(repository.getOne(id));
+    }
+
+    public List<OfficeDto> getAll() {
+        return mapper.toDtoList(repository.findAll());
     }
 }

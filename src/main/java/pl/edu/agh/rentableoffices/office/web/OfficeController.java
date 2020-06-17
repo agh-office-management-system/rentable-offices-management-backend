@@ -35,6 +35,12 @@ public class OfficeController {
         return ResponseDto.success(officeDetailsService.get(id));
     }
 
+    @GetMapping
+    @ApiOperation("Pobranie wszystkich biur")
+    public ResponseDto<List<OfficeDto>> getAll() {
+        return ResponseDto.success(officeDetailsService.getAll());
+    }
+
     @PostMapping
     @PreAuthorize("hasRole('ROLE_ADMINISTRATION_EMPLOYEE')")
     @ApiOperation("Utworzenie biura")

@@ -17,6 +17,8 @@ import pl.edu.agh.rentableoffices.tenant.service.TenantDetailsService;
 import pl.edu.agh.rentableoffices.tenant.service.TenantMessageService;
 import pl.edu.agh.rentableoffices.tenant.service.TenantUpdateService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/tenants")
 @RequiredArgsConstructor
@@ -49,6 +51,13 @@ public class TenantController {
         return ResponseDto.success(tenantDetailsService.get(id));
     }
 
+    @GetMapping
+    @PreAuthorize("hasAnyRole('ROLE_ADMINISTRATION_EMPLOYEE', 'ROLE_SYSTEM_ADMIN') or #id == authentication.principal.tenantId")
+    @ApiOperation("Pobranie wszystkich najemców")
+    public ResponseDto<List<TenantDto>> getAll() {
+        return ResponseDto.success(tenantDetailsService.getAll());
+    }
+
     @PutMapping("/{id}")
     @PreAuthorize("hasAnyRole('ROLE_ADMINISTRATION_EMPLOYEE', 'ROLE_SYSTEM_ADMIN') or #id == authentication.principal.tenantId")
     @ApiOperation("Uaktualnienie danych najemcy")
@@ -64,4 +73,5 @@ public class TenantController {
         tenantUpdateService.verify(id, command);
         return ResponseDto.success();
     }
+    //TODO wykreślenie najemcy?
 }

@@ -9,6 +9,7 @@ import pl.edu.agh.rentableoffices.tenant.mapper.TenantMapper;
 
 import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Service
 @Transactional
@@ -19,5 +20,9 @@ public class TenantDetailsService {
 
     public TenantDto get(@NotNull Long id) throws TenantNotFoundException {
         return mapper.toDto(repository.get(id));
+    }
+
+    public List<TenantDto> getAll() {
+        return mapper.toDtoList(repository.findAll());
     }
 }
