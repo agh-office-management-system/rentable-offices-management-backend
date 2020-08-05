@@ -2,8 +2,10 @@ package pl.edu.agh.rentableoffices.incidents.service;
 
 import pl.edu.agh.rentableoffices.incidents.dto.CreateIncidentCommand;
 
+import javax.validation.constraints.NotNull;
+
 public class IncidentService {
-    public void createIncident(Long tenantId, CreateIncidentCommand command) {
+    public void createIncident(@NotNull Long tenantId, @NotNull CreateIncidentCommand command) {
 
     }
 

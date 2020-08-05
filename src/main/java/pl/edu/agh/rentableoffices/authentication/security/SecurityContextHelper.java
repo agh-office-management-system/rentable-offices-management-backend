@@ -14,6 +14,7 @@ public class SecurityContextHelper {
     }
 
     public static String getCurrentUsername() {
-        return null;
+        AppPrincipal principal = getPrincipal();
+        return principal.getUsername();
     }
 }

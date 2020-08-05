@@ -23,7 +23,7 @@ public class TenantIncidentController {
     @PostMapping("{id}/incidents")
     @PreAuthorize("hasRole('ROLE_TENANT')")
     @ApiOperation("Stworzenie nowego incydentu")
-    public ResponseDto<Void> createIncident(@ApiParam("Id najemcy") @PathVariable("id") Long tenantId,
+    public ResponseDto<?> createIncident(@ApiParam("Id najemcy") @PathVariable("id") Long tenantId,
                                             @ApiParam("Żądanie utworzenia nowego incydentu")
                                             @RequestBody @Valid CreateIncidentCommand command) {
         incidentService.createIncident(tenantId, command);
